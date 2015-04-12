@@ -1,0 +1,24 @@
+/*.root {
+    -fx-background-color: rgba(0,0,0,0);
+}
+*/
+
+.key {
+    -fx-font: normal bold 28pt "Courier New";
+    -fx-text-fill: #000;
+    /*
+    -fx-opacity: 1;
+    -fx-font-smoothing-type: gray;
+    -fx-font-size:28;
+    */
+}
+
+.keydesc {
+    -fx-font: normal normal 28pt "Cambria";
+    -fx-text-fill: #000;
+}
+
+.menu {
+    padding-top: 20px;
+    -fx-background-image: url('/org/excelsi/sketch/parchment-small2.jpg');
+}
