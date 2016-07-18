@@ -61,12 +61,13 @@ public class FGui extends SimpleApplication {
     public void simpleInitApp() {
         assetManager.registerLocator("/", ClasspathLocator.class);
 
-
+        /*
         Box b = new Box(Vector3f.ZERO, 1, 1, 1);
         Geometry geom = new Geometry("Box", b);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setTexture("ColorMap", assetManager.loadTexture("org/excelsi/sketch/title-image3.png"));
         geom.setMaterial(mat);
+        */
         //rootNode.attachChild(geom);
 
 
