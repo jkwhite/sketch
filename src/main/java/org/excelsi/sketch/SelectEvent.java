@@ -1,16 +1,16 @@
 package org.excelsi.sketch;
 
 
-public class SelectEvent extends Event {
-    private final Menu _m;
+public class SelectEvent<E> extends Event {
+    private final Menu<E> _m;
 
 
-    public SelectEvent(Object source, Menu m) {
+    public SelectEvent(Object source, Menu<E> m) {
         super(source);
         _m = m;
     }
 
-    public Menu getMenu() {
+    public Menu<E> getMenu() {
         return _m;
     }
 

@@ -1,18 +1,6 @@
 package org.excelsi.sketch;
 
 
-//import javafx.scene.Group;
-//import javafx.scene.Parent;
-//import javafx.scene.layout.HBox;
-//import javafx.scene.layout.VBox;
-//import javafx.scene.control.Label;
-//import javafx.scene.text.Font;
-//import javafx.scene.paint.Color;
-//import javafx.scene.effect.Effect;
-//import javafx.scene.effect.Glow;
-//import javafx.event.EventHandler;
-//import javafx.scene.input.MouseEvent;
-
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 

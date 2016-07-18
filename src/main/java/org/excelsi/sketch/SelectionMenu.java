@@ -1,8 +1,18 @@
 package org.excelsi.sketch;
 
 
+import java.util.function.UnaryOperator;
+
+
 public class SelectionMenu<E> extends Menu<E> {
     public SelectionMenu(MenuItem<E>... items) {
-        super((sel)->{ setChoice(sel); return sel; }, items);
+        super((sel)->{return sel;}, items);
+    }
+
+    class Selector implements UnaryOperator<MenuItem<E>> {
+        public MenuItem<E> apply(MenuItem<E> s) {
+            //setChoice(s);
+            return s;
+        }
     }
 }

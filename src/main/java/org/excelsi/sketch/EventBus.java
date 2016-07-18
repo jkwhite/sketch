@@ -16,7 +16,7 @@ public final class EventBus {
         return _b;
     }
 
-    public Event await(Event e) {
+    public <E extends Event> E await(E e) {
         synchronized(e) {
             _events.add(e);
             try {
@@ -26,6 +26,10 @@ public final class EventBus {
             }
         }
         return e;
+    }
+
+    public void post(Event e) {
+        _events.add(e);
     }
 
     public boolean hasEvents() {

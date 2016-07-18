@@ -21,7 +21,7 @@ import org.excelsi.sketch.MenuItem;
 
 
 public class JfxMenu extends Parent {
-    public JfxMenu(final Menu m) {
+    public JfxMenu(final Object notify, final Menu m) {
         final VBox menu = new VBox();
         for(MenuItem item:m.getItems()) {
             Label key = new Label(item.key()+" - ");
@@ -44,6 +44,10 @@ public class JfxMenu extends Parent {
             line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     m.getF().apply(item);
+                    m.setChoice(item);
+                    synchronized(notify) {
+                        notify.notify();
+                    }
                 }
             });
             menu.getChildren().add(line);

@@ -151,6 +151,7 @@ public class FGui extends SimpleApplication {
             menu.getStyleClass().add("menu");
         }
         */
+        /*
         Menu menu = new Menu<Runnable>(
             (item) -> { item.item().run(); return null; },
             new MenuItem<Runnable>("n", "New game", null),
@@ -193,6 +194,7 @@ public class FGui extends SimpleApplication {
 
         //menu.getChildren().add(t);
         //menu.getChildren().add(f);
+        */
 
         Platform.runLater(new Runnable() {
             public void run() {
@@ -204,8 +206,9 @@ public class FGui extends SimpleApplication {
                 //SubScene sub = new SubScene(hud, scene.getWidth(), scene.getHeight(), false, SceneAntialiasing.BALANCED);
                 //sub.setUserAgentStylesheet("/org/excelsi/sketch/tower-hud.css");
                 //testguiManager.getRootGroup().getChildren().add(sub);
-                testguiManager.getRootGroup().getChildren().add(title);
-                testguiManager.getRootGroup().getChildren().add(menu);
+
+                //testguiManager.getRootGroup().getChildren().add(title);
+                //testguiManager.getRootGroup().getChildren().add(menu);
             }
         });
 

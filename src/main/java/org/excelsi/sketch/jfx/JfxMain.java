@@ -72,7 +72,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     public void simpleInitApp() {
-        _e = new EventBus();
+        _e = EventBus.instance();
         assetManager.registerLocator("/", ClasspathLocator.class);
 
         final GuiManager testguiManager = new GuiManager(this.guiNode, this.assetManager, this, true, new ProtonCursorProvider(this, this.assetManager, this.inputManager));

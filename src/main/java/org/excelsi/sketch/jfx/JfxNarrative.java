@@ -20,6 +20,7 @@ import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.Menu;
 import org.excelsi.sketch.MenuItem;
 import org.excelsi.sketch.SelectEvent;
+import org.excelsi.sketch.MessageEvent;
 
 
 public class JfxNarrative extends Parent /*implements Narrative*/ {
@@ -34,18 +35,19 @@ public class JfxNarrative extends Parent /*implements Narrative*/ {
             if(e instanceof SelectEvent) {
                 select((SelectEvent)e);
             }
+            else if(e instanceof MessageEvent) {
+                message((MessageEvent)e);
+            }
         });
     }
 
-    //@Override public void act(Menu<E> m) {
-    //}
-//
-    //@Override public <E> E select(Menu<E> m) {
-        //final JfxMenu menu = new JfxMenu(m);
-        //getChildren().add(menu);
-    //}
+    private void message(MessageEvent e) {
+        Label t = new Label(e.getMessage());
+        getChildren().add(t);
+    }
+
     private void select(SelectEvent e) {
-        final JfxMenu menu = new JfxMenu(e.getMenu());
+        final JfxMenu menu = new JfxMenu(e, e.getMenu());
         getChildren().add(menu);
     }
 }

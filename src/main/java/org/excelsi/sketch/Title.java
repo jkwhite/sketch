@@ -7,7 +7,7 @@ public class Title implements State {
             new MenuItem<Runnable>("n", "New game", null),
             new MenuItem<Runnable>("l", "Load game", null),
             new MenuItem<Runnable>("h", "High scores", null),
-            new MenuItem<Runnable>("q", "Quit", () -> { System.exit(0); })
+            new MenuItem<Runnable>("q", "Quit", () -> { c.setState(new Quit()); })
         ));
         r.run();
     }
