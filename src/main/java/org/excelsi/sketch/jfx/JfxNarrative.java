@@ -4,6 +4,7 @@ package org.excelsi.sketch.jfx;
 import org.excelsi.sketch.Narrative;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ import org.excelsi.sketch.Menu;
 import org.excelsi.sketch.MenuItem;
 import org.excelsi.sketch.SelectEvent;
 import org.excelsi.sketch.MessageEvent;
+import org.excelsi.sketch.KeyEvent;
 
 
 public class JfxNarrative extends Parent /*implements Narrative*/ {
@@ -34,9 +36,19 @@ public class JfxNarrative extends Parent /*implements Narrative*/ {
             final Event e = le.e();
             if(e instanceof SelectEvent) {
                 select((SelectEvent)e);
+                le.consume();
             }
             else if(e instanceof MessageEvent) {
                 message((MessageEvent)e);
+                le.consume();
+            }
+            else if(e instanceof KeyEvent) {
+                for(Node child:getChildren()) {
+                    ((HudNode)child).onEvent(le);
+                    if(le.isConsumed()) {
+                        break;
+                    }
+                }
             }
         });
     }

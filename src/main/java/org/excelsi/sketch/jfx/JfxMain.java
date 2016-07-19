@@ -57,6 +57,7 @@ import org.excelsi.sketch.Context;
 import org.excelsi.sketch.Title;
 import org.excelsi.sketch.BlockingNarrative;
 import org.excelsi.sketch.Logic;
+import org.excelsi.sketch.KeyEvent;
 
 
 public class JfxMain extends SimpleApplication implements EventBus.Handler {
@@ -91,6 +92,8 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
             public void onKeyEvent(KeyInputEvent e) {
                 System.err.println(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
+                final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");
+                EventBus.instance().post(ke);
             }
 
             public void onMouseButtonEvent(MouseButtonEvent e) {
