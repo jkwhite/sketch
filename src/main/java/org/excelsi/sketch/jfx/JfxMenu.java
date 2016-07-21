@@ -67,6 +67,8 @@ public class JfxMenu extends HudNode {
     }
 
     private void choose(final Menu m, final MenuItem item, final Object notify) {
+        ((Group)getParent()).getChildren().remove(this);
+        System.err.println("removed menu");
         m.getF().apply(item);
         m.setChoice(item);
         synchronized(notify) {

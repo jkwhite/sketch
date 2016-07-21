@@ -25,7 +25,7 @@ import org.excelsi.sketch.MessageEvent;
 import org.excelsi.sketch.KeyEvent;
 
 
-public class JfxNarrative extends Parent /*implements Narrative*/ {
+public class JfxNarrative extends Group /*implements Narrative*/ {
     private final EventBus _e;
 
 
@@ -44,9 +44,11 @@ public class JfxNarrative extends Parent /*implements Narrative*/ {
             }
             else if(e instanceof KeyEvent) {
                 for(Node child:getChildren()) {
-                    ((HudNode)child).onEvent(le);
-                    if(le.isConsumed()) {
-                        break;
+                    if(child instanceof HudNode) {
+                        ((HudNode)child).onEvent(le);
+                        if(le.isConsumed()) {
+                            break;
+                        }
                     }
                 }
             }
@@ -55,7 +57,9 @@ public class JfxNarrative extends Parent /*implements Narrative*/ {
 
     private void message(MessageEvent e) {
         Label t = new Label(e.getMessage());
+        t.getStyleClass().add("message");
         getChildren().add(t);
+        System.err.println("added label "+t);
     }
 
     private void select(SelectEvent e) {

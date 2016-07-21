@@ -9,6 +9,9 @@ public class BlockingNarrative implements Narrative {
         _e = e;
     }
 
+    @Override public void pause() {
+    }
+
     @Override public void message(String m) {
         _e.post(new MessageEvent(this, m));
     }

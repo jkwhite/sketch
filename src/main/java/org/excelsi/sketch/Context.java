@@ -24,6 +24,8 @@ public final class Context {
     }
 
     public void setState(final State state) {
+        final State oldValue = _state;
         _state = state;
+        EventBus.instance().post(new StateChangeEvent(this, oldValue, _state));
     }
 }
