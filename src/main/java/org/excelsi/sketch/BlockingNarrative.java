@@ -10,6 +10,7 @@ public class BlockingNarrative implements Narrative {
     }
 
     @Override public void pause() {
+        EventBus.instance().await(new PauseEvent(this));
     }
 
     @Override public void message(String m) {

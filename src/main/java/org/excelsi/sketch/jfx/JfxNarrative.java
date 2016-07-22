@@ -23,6 +23,7 @@ import org.excelsi.sketch.MenuItem;
 import org.excelsi.sketch.SelectEvent;
 import org.excelsi.sketch.MessageEvent;
 import org.excelsi.sketch.KeyEvent;
+import org.excelsi.sketch.PauseEvent;
 
 
 public class JfxNarrative extends Group /*implements Narrative*/ {
@@ -52,6 +53,9 @@ public class JfxNarrative extends Group /*implements Narrative*/ {
                     }
                 }
             }
+            else if(e instanceof PauseEvent) {
+                pause((PauseEvent)e);
+            }
         });
     }
 
@@ -65,5 +69,10 @@ public class JfxNarrative extends Group /*implements Narrative*/ {
     private void select(SelectEvent e) {
         final JfxMenu menu = new JfxMenu(e, e.getMenu());
         getChildren().add(menu);
+    }
+
+    private void pause(PauseEvent e) {
+        final JfxMessage m = new JfxMessage(e);
+        getChildren().add(m);
     }
 }
