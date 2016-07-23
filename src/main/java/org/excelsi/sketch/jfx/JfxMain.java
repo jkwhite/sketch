@@ -92,8 +92,12 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
             public void onKeyEvent(KeyInputEvent e) {
                 System.err.println(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
-                final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");
-                EventBus.instance().post(ke);
+                Thread.dumpStack();
+                boolean meta = e.getKeyCode()==219;
+                if(e.isPressed() && !meta) {
+                    final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");
+                    EventBus.instance().post(ke);
+                }
             }
 
             public void onMouseButtonEvent(MouseButtonEvent e) {

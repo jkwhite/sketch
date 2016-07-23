@@ -72,7 +72,7 @@ public class JfxNarrative extends Group /*implements Narrative*/ {
     }
 
     private void pause(PauseEvent e) {
-        final JfxMessage m = new JfxMessage(e);
+        final JfxMessage m = new JfxMessage("-- More --", e);
         getChildren().add(m);
     }
 }
