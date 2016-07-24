@@ -6,10 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Group;
 
 
-public class JfxMessage extends HudNode {
-    public JfxMessage(final String m, final Object notify) {
+public class JfxPause extends HudNode {
+    public JfxPause(final String m, final Object notify) {
         addLogicHandler((le)->{
-            System.err.println("message got event:: "+le);
             le.consume();
             ((Group)getParent()).getChildren().remove(this);
             synchronized(notify) {

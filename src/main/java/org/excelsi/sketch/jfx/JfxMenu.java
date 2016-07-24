@@ -25,7 +25,6 @@ import org.excelsi.sketch.MenuItem;
 public class JfxMenu extends HudNode {
     public JfxMenu(final Object notify, final Menu m) {
         addLogicHandler((le)->{
-            System.err.println("menu got event: "+le);
             le.consume();
             final Event e = le.e();
             if(e instanceof KeyEvent) {
@@ -68,7 +67,6 @@ public class JfxMenu extends HudNode {
 
     private void choose(final Menu m, final MenuItem item, final Object notify) {
         ((Group)getParent()).getChildren().remove(this);
-        System.err.println("removed menu");
         m.getF().apply(item);
         m.setChoice(item);
         synchronized(notify) {

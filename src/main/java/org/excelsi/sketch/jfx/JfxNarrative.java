@@ -1,6 +1,8 @@
 package org.excelsi.sketch.jfx;
 
 
+import java.util.List;
+import java.util.LinkedList;
 import org.excelsi.sketch.Narrative;
 
 import javafx.scene.Group;
@@ -15,6 +17,9 @@ import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
+
 
 import org.excelsi.sketch.Event;
 import org.excelsi.sketch.EventBus;
@@ -26,53 +31,52 @@ import org.excelsi.sketch.KeyEvent;
 import org.excelsi.sketch.PauseEvent;
 
 
-public class JfxNarrative extends Group /*implements Narrative*/ {
-    private final EventBus _e;
-
-
-    public JfxNarrative(final EventBus eb) {
-        _e = eb;
+public class JfxNarrative extends Group {
+    public JfxNarrative() {
         addEventHandler(LogicEvent.TYPE, (le)->{
             System.err.println("narrative got event: "+le);
             final Event e = le.e();
-            if(e instanceof SelectEvent) {
-                select((SelectEvent)e);
-                le.consume();
-            }
-            else if(e instanceof MessageEvent) {
-                message((MessageEvent)e);
-                le.consume();
-            }
-            else if(e instanceof KeyEvent) {
-                for(Node child:getChildren()) {
-                    if(child instanceof HudNode) {
-                        ((HudNode)child).onEvent(le);
-                        if(le.isConsumed()) {
-                            break;
-                        }
-                    }
-                }
-            }
-            else if(e instanceof PauseEvent) {
+            if(e instanceof PauseEvent) {
                 pause((PauseEvent)e);
+            }
+            //else if(e instanceof SelectEvent) {
+                //select((SelectEvent)e);
+                //le.consume();
+            //}
+            else {
+                onEvent(le);
             }
         });
     }
 
-    private void message(MessageEvent e) {
-        Label t = new Label(e.getMessage());
-        t.getStyleClass().add("message");
-        getChildren().add(t);
-        System.err.println("added label "+t);
+    private void onEvent(final LogicEvent le) {
+        List<Node> frontier = new LinkedList<>();
+        frontier.addAll(getChildren());
+        System.err.println("sending event "+le+" to: "+getChildren());
+        while(!frontier.isEmpty()) {
+            final Node child = frontier.remove(0);
+            if(child instanceof Parent) {
+                frontier.addAll(((Parent)child).getChildrenUnmodifiable());
+            }
+            if(child instanceof HudNode) {
+                System.err.println("sending event to: "+child);
+                ((HudNode)child).onEvent(le);
+                if(le.isConsumed()) {
+                    System.err.println("consumed");
+                    break;
+                }
+            }
+        }
     }
 
-    private void select(SelectEvent e) {
-        final JfxMenu menu = new JfxMenu(e, e.getMenu());
-        getChildren().add(menu);
-    }
+    //private void select(SelectEvent e) {
+        //final JfxMenu menu = new JfxMenu(e, e.getMenu());
+        //getChildren().add(menu);
+        //System.err.println("added menu");
+    //}
 
     private void pause(PauseEvent e) {
-        final JfxMessage m = new JfxMessage("-- More --", e);
-        getChildren().add(m);
+        final JfxPause m = new JfxPause("-- More --", e);
+        getChildren().add(0, m);
     }
 }

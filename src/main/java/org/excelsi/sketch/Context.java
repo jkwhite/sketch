@@ -3,12 +3,11 @@ package org.excelsi.sketch;
 
 public final class Context {
     private final Narrative _n;
-    private State _state;
+    private State _state = new NullState();
 
 
-    public Context(final Narrative n, final State state) {
+    public Context(final Narrative n) {
         _n = n;
-        _state = state;
     }
 
     public Narrative n() {
@@ -27,5 +26,10 @@ public final class Context {
         final State oldValue = _state;
         _state = state;
         EventBus.instance().post(new StateChangeEvent(this, oldValue, _state));
+    }
+
+    public Context state(final State state) {
+        setState(state);
+        return this;
     }
 }

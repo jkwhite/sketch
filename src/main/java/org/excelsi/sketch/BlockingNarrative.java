@@ -13,8 +13,12 @@ public class BlockingNarrative implements Narrative {
         EventBus.instance().await(new PauseEvent(this));
     }
 
+    @Override public void title(String title) {
+        _e.post(new TitleEvent(this, title));
+    }
+
     @Override public void message(String m) {
-        _e.post(new MessageEvent(this, m));
+        _e.post(new MessageEvent(this, MessageEvent.Type.ephemeral, m));
     }
 
     @Override public <E> E choose(SelectionMenu<E> m) {

@@ -3,6 +3,9 @@
 }
 */
 
+#title_root {
+}
+
 .key {
     -fx-font: normal bold 28pt "Courier New";
     -fx-text-fill: #000;
@@ -15,6 +18,12 @@
 
 .keydesc {
     -fx-font: normal normal 28pt "Palatino";
+    -fx-text-fill: #000;
+}
+
+.title {
+    -fx-font: normal normal 12pt "Palatino";
+    -fx-background-image: url('/org/excelsi/sketch/parchment-small2.jpg');
     -fx-text-fill: #000;
 }
 

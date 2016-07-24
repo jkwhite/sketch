@@ -27,7 +27,9 @@ import com.jme3x.jfx.cursor.proton.ProtonCursorProvider;
 import com.jme3x.jfx.FXMLHud;
 import com.jme3x.jfx.window.FXMLWindow;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
@@ -92,7 +94,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
             public void onKeyEvent(KeyInputEvent e) {
                 System.err.println(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
-                Thread.dumpStack();
+                //Thread.dumpStack();
                 boolean meta = e.getKeyCode()==219;
                 if(e.isPressed() && !meta) {
                     final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");
@@ -152,8 +154,15 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
                 //testguiManager.getRootGroup().getChildren().add(title);
                 //testguiManager.getRootGroup().getChildren().add(menu);
-                _guiManager.getRootGroup().getChildren().add(new JfxNarrative(_e));
-                initState();
+                final FXMLLoader loader = new FXMLLoader();
+                try {
+                    final Node root = loader.load(getClass().getResource("/org/excelsi/sketch/root.fxml"));
+                    _guiManager.getRootGroup().getChildren().add(root);
+                    initState();
+                }
+                catch(Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
@@ -180,12 +189,12 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             }
         };
 
-        Logic logic = new Logic(
+        final Logic logic = new Logic(
             new Historian(
                 new Context(
-                    new BlockingNarrative(_e),
-                    new Title()
+                    new BlockingNarrative(_e)
                 )
+                .state(new Title())
             )
         );
         logic.start();

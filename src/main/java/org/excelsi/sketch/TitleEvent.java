@@ -1,0 +1,20 @@
+package org.excelsi.sketch;
+
+
+public class TitleEvent extends Event {
+    private final String _title;
+
+
+    public TitleEvent(Object source, String title) {
+        super(source);
+        _title = title;
+    }
+
+    public String getTitle() {
+        return _title;
+    }
+
+    @Override public String toString() {
+        return "title::{t:"+_title+"\"}";
+    }
+}
