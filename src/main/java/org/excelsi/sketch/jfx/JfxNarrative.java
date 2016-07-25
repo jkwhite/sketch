@@ -39,10 +39,6 @@ public class JfxNarrative extends Group {
             if(e instanceof PauseEvent) {
                 pause((PauseEvent)e);
             }
-            //else if(e instanceof SelectEvent) {
-                //select((SelectEvent)e);
-                //le.consume();
-            //}
             else {
                 onEvent(le);
             }
@@ -58,9 +54,9 @@ public class JfxNarrative extends Group {
             if(child instanceof Parent) {
                 frontier.addAll(((Parent)child).getChildrenUnmodifiable());
             }
-            if(child instanceof HudNode) {
+            if(child instanceof Hud) {
                 System.err.println("sending event to: "+child);
-                ((HudNode)child).onEvent(le);
+                ((Hud)child).onEvent(le);
                 if(le.isConsumed()) {
                     System.err.println("consumed");
                     break;

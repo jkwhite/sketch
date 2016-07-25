@@ -21,6 +21,10 @@ public class BlockingNarrative implements Narrative {
         _e.post(new MessageEvent(this, MessageEvent.Type.ephemeral, m));
     }
 
+    @Override public void poster(String m) {
+        _e.post(new MessageEvent(this, MessageEvent.Type.permanent, m));
+    }
+
     @Override public <E> E choose(SelectionMenu<E> m) {
         return _e.await(new SelectEvent<E>(this, m)).getMenu().getChoice().item();
     }

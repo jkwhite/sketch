@@ -5,6 +5,7 @@ import java.net.URL;
 import javafx.scene.Parent;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.Region;
 import javafx.fxml.FXMLLoader;
 
 import org.excelsi.sketch.StateChangeEvent;
@@ -18,21 +19,18 @@ public class JfxState extends HudNode {
 
 
     public JfxState() {
-        ResourceBundle rb = new ListResource(new Object[][]{
-            {"screen_width", Integer.toString(Display.getWidth())},
-            {"screen_height", Integer.toString(Display.getHeight())}
-        });
         addLogicHandler((le)->{
             if(le.e() instanceof StateChangeEvent) {
                 final StateChangeEvent se = (StateChangeEvent) le.e();
                 if(!getChildren().isEmpty()) {
-                    getChildren().remove(0);
+                    final Region doomed = (Region) getChildren().get(0);
+                    transition(doomed, (e)->{ getChildren().remove(doomed); });
                 }
                 final String urlName = String.format("/org/excelsi/sketch/state-%s.fxml", se.getNewValue().getClass().getSimpleName().toLowerCase());
                 final URL url = getClass().getResource(urlName);
                 if(url!=null) {
                     try {
-                        final Node stateRoot = _loader.load(url, rb);
+                        final Node stateRoot = _loader.load(url, Resources.jfxResources());
                         getChildren().add(stateRoot);
                     }
                     catch(Exception e) {

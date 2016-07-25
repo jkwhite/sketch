@@ -22,7 +22,7 @@ import org.excelsi.sketch.Menu;
 import org.excelsi.sketch.MenuItem;
 
 
-public class JfxMenu extends HudNode {
+public class JfxMenu extends HudRegion {
     public JfxMenu(final Object notify, final Menu m) {
         addLogicHandler((le)->{
             le.consume();

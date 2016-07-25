@@ -11,16 +11,12 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 
 
-public abstract class HudNode extends Group implements Hud {
+public abstract class HudRegion extends Region implements Hud {
     private String _transition;
     private List<EventHandler<LogicEvent>> _logicHandlers;
 
 
-    public HudNode() {
-    }
-
-    public HudNode(final String style) {
-        //getStyleClass().add(style);
+    public HudRegion() {
     }
 
     public final void addLogicHandler(final EventHandler<LogicEvent> h) {

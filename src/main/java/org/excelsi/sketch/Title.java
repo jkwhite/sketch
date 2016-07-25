@@ -3,9 +3,9 @@ package org.excelsi.sketch;
 
 public class Title implements State {
     @Override public void run(final Context c) {
-        c.n().title("Dawn");
+        c.n().title("");
         final Runnable r = c.n().choose(new SelectionMenu<Runnable>(
-            new MenuItem<Runnable>("n", "New game", null),
+            new MenuItem<Runnable>("n", "New game", ()->{ c.setState(new Prelude()); }),
             new MenuItem<Runnable>("l", "Load game", null),
             new MenuItem<Runnable>("h", "High scores", ()->{ c.setState(new HighScores()); }),
             new MenuItem<Runnable>("q", "Quit", ()->{ c.setState(new Quit()); })

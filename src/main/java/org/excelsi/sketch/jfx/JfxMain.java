@@ -4,6 +4,9 @@ package org.excelsi.sketch.jfx;
 import java.util.function.Function;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.FlyCamAppState;
+import com.jme3.audio.AudioListenerState;
+import com.jme3.app.DebugKeysAppState;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -56,6 +59,7 @@ import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.Event;
 import org.excelsi.sketch.Historian;
 import org.excelsi.sketch.Context;
+import org.excelsi.sketch.NullState;
 import org.excelsi.sketch.Title;
 import org.excelsi.sketch.BlockingNarrative;
 import org.excelsi.sketch.Logic;
@@ -72,6 +76,10 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         JfxMain app = new JfxMain();
         app.setPauseOnLostFocus(false);
         app.start();
+    }
+
+    public JfxMain() {
+        super(new FlyCamAppState(), new AudioListenerState(), new DebugKeysAppState());
     }
 
     public void simpleInitApp() {
@@ -113,7 +121,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         });
         this.inputManager.addRawInputListener(testguiManager.getInputRedirector());
         try {
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }
@@ -152,11 +160,9 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
                 Scene scene = testguiManager.getRootGroup().getScene();
                 scene.getStylesheets().add("/org/excelsi/sketch/tower-hud.css");
 
-                //testguiManager.getRootGroup().getChildren().add(title);
-                //testguiManager.getRootGroup().getChildren().add(menu);
                 final FXMLLoader loader = new FXMLLoader();
                 try {
-                    final Node root = loader.load(getClass().getResource("/org/excelsi/sketch/root.fxml"));
+                    final Node root = loader.load(getClass().getResource("/org/excelsi/sketch/root.fxml"), Resources.jfxResources());
                     _guiManager.getRootGroup().getChildren().add(root);
                     initState();
                 }
@@ -170,13 +176,11 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     @Override public void simpleUpdate(final float tpf) {
         super.simpleUpdate(tpf);
         if(_e.hasEvents()) {
-            System.err.println("has events");
             Platform.runLater(_events);
         }
     }
 
     @Override public void handleEvent(final Event e) {
-        System.err.println("got event: "+e);
         Scene scene = _guiManager.getRootGroup().getScene();
         //scene.getRoot().fireEvent(new LogicEvent(e));
         _guiManager.getRootGroup().getChildren().get(0).fireEvent(new LogicEvent(e));

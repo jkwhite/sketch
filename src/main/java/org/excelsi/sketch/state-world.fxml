@@ -18,23 +18,15 @@
 
 
 <BorderPane xmlns:fx='http://javafx.com/fxml' fx:id='title_root' prefWidth="%screen_width" prefHeight="%screen_height">
-    <center>
-        <HBox alignment='TOP_CENTER'>
-        <VBox spacing='20' alignment='TOP_CENTER'>
+    <right>
+        <JfxSelector/>
+    </right>
+    <bottom>
+        <VBox prefWidth='%screen_width' styleClass='status'>
             <children>
-                <ImageView>
-                    <image>
-                        <Image url='/org/excelsi/sketch/title-image3.png'/>
-                    </image>
-                </ImageView>
-                <ImageView>
-                    <image>
-                        <Image url='/org/excelsi/sketch/title-text4.png'/>
-                    </image>
-                </ImageView>
-                <JfxSelector transition='fadeIn'/>
+                <JfxMessages/>
+                <JfxStatus/>
             </children>
         </VBox>
-        </HBox>
-    </center>
+    </bottom>
 </BorderPane>

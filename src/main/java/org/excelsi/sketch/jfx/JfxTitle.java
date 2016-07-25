@@ -4,14 +4,19 @@ package org.excelsi.sketch.jfx;
 import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Group;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Priority;
 
 import org.excelsi.sketch.Event;
 import org.excelsi.sketch.TitleEvent;
 
 
-public class JfxTitle extends HudNode {
+public class JfxTitle extends HudRegion {
     public JfxTitle() {
-        super("title");
+        setVisible(false);
         addLogicHandler((le)->{
             final Event e = le.e();
             if(e instanceof TitleEvent) {
@@ -19,9 +24,17 @@ public class JfxTitle extends HudNode {
                 if(!getChildren().isEmpty()) {
                     getChildren().remove(0);
                 }
-                final Label t = new Label(te.getTitle());
-                t.getStyleClass().add("title");
-                getChildren().add(t);
+                if(!"".equals(te.getTitle())) {
+                    final Label t = new Label(te.getTitle());
+                    t.getStyleClass().add("title");
+                    t.setPrefWidth(getPrefWidth());
+                    getChildren().add(t);
+                    transition(JfxTitle.this, null);
+                    setVisible(true);
+                }
+                else {
+                    setVisible(false);
+                }
             }
         });
     }

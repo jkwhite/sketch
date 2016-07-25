@@ -16,6 +16,7 @@ public class JfxSelector extends HudNode {
             if(le.e() instanceof SelectEvent) {
                 final JfxMenu menu = new JfxMenu(le.e(), ((SelectEvent)le.e()).getMenu());
                 getChildren().add(menu);
+                transition(menu, null);
                 le.consume();
             }
         });
