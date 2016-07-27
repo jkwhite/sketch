@@ -2,7 +2,8 @@ package org.excelsi.sketch;
 
 
 public class Prelude implements State {
-    public static final String TEXT = "Many years ago in forgotten ages, there was an ancient people#who were tired of the pain and strife#in this world, and resolved to flee.#They prayed for divine intervention,#but their gods did not respond.#Bereft of faith, they decided#to take destiny upon themselves.#They abandoned the earth#and built a path to the moon.# #One evening you find yourself face to face#with a tower of immeasurable proportion.#It extends upward seemingly forever,#fading into the dark-blue starlit sky.".replaceAll("#","\n");
+    public static final String TEXT = "Many years ago in forgotten ages,#there lived an ancient people#who achieved mastery over all the earth#and built many things of wonder.##But their most wondrous achievement#was the construction of the Tower -#a structure of immeasurable proportion#linking together the earth and its moon.##Legends say that those ancient people#grew capricious and careless in their mastery,#and in despair, they abandoned the earth#when it first started to die.##Now with its mythical creators long vanished#and the means to control it lost to time,#the crumbling Tower stands dark and silent,#yet still reaching upward seemingly forever.##But there are those who say that the Tower#can still be traversed, and that the key#to reviving the earth lies at the other end#of that labyrinthine aethereal path..."
+        .replaceAll("#","\n");
     private final String _text;
 
 
