@@ -67,8 +67,10 @@ import org.excelsi.sketch.KeyEvent;
 
 
 public class JfxMain extends SimpleApplication implements EventBus.Handler {
-    private EventBus _e;
+    //private EventBus _e;
     private Runnable _events;
+    private String _jfxSubscription;
+    private String _jmeSubscription;
     private GuiManager _guiManager;
 
 
@@ -83,7 +85,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     public void simpleInitApp() {
-        _e = EventBus.instance();
+        //_e = EventBus.instance();
         assetManager.registerLocator("/", ClasspathLocator.class);
 
         final GuiManager testguiManager = new GuiManager(this.guiNode, this.assetManager, this, true, new ProtonCursorProvider(this, this.assetManager, this.inputManager));
@@ -175,7 +177,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
     @Override public void simpleUpdate(final float tpf) {
         super.simpleUpdate(tpf);
-        if(_e.hasEvents()) {
+        if(EventBus.instance().hasEvents(_jfxSubscription)) {
             Platform.runLater(_events);
         }
     }
@@ -187,16 +189,17 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     private void initState() {
+        _jfxSubscription = EventBus.instance().subscribe("jfx");
         _events = new Runnable() {
             @Override public void run() {
-                _e.consume(JfxMain.this);
+                EventBus.instance().consume(_jfxSubscription, JfxMain.this);
             }
         };
 
         final Logic logic = new Logic(
             new Historian(
                 new Context(
-                    new BlockingNarrative(_e)
+                    new BlockingNarrative(EventBus.instance())
                 )
                 .state(new Title())
             )

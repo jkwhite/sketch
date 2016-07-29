@@ -25,6 +25,7 @@
         <VBox prefWidth='%screen_width' styleClass='status'>
             <children>
                 <JfxMessages/>
+                <JfxWorld/>
                 <JfxStatus/>
             </children>
         </VBox>

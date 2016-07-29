@@ -1,6 +1,8 @@
 package org.excelsi.sketch;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Predicate;
@@ -9,16 +11,25 @@ import java.util.function.Predicate;
 public final class EventBus {
     private static final EventBus _b = new EventBus();
 
-    private final Queue<Event> _events = new ArrayBlockingQueue<>(1000);
+    private int _nextId;
+    private final Map<String,Queue<Event>> _queues = new HashMap<>();
+    //private final Queue<Event> _events = new ArrayBlockingQueue<>(1000);
 
 
     public static EventBus instance() {
         return _b;
     }
 
+    public String subscribe(final String consumer) {
+        final String subscription = consumer+"-"+_nextId++;
+        _queues.put(subscription, new ArrayBlockingQueue<>(1000));
+        return subscription;
+    }
+
     public <E extends Event> E await(E e) {
         synchronized(e) {
-            _events.add(e);
+            //_events.add(e);
+            post(e);
             try {
                 e.wait();
             }
@@ -29,16 +40,20 @@ public final class EventBus {
     }
 
     public void post(Event e) {
-        _events.add(e);
+        //_events.add(e);
+        for(final Queue<Event> q:_queues.values()) {
+            q.add(e);
+        }
     }
 
-    public boolean hasEvents() {
-        return !_events.isEmpty();
+    public boolean hasEvents(final String subscription) {
+        return !_queues.get(subscription).isEmpty();
     }
 
-    public void consume(Handler h) {
-        while(!_events.isEmpty()) {
-            h.handleEvent(_events.remove());
+    public void consume(final String subscription, Handler h) {
+        final Queue<Event> q = _queues.get(subscription);
+        while(!q.isEmpty()) {
+            h.handleEvent(q.remove());
         }
     }
 
