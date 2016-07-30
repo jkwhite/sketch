@@ -47,7 +47,11 @@ public final class EventBus {
     }
 
     public boolean hasEvents(final String subscription) {
-        return !_queues.get(subscription).isEmpty();
+        final Queue<Event> q = _queues.get(subscription);
+        if(q==null) {
+            throw new IllegalArgumentException("no such subscription '"+subscription+"'");
+        }
+        return !q.isEmpty();
     }
 
     public void consume(final String subscription, Handler h) {

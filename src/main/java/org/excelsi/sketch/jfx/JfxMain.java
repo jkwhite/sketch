@@ -69,6 +69,7 @@ import org.excelsi.sketch.KeyEvent;
 public class JfxMain extends SimpleApplication implements EventBus.Handler {
     //private EventBus _e;
     private Runnable _events;
+    private EventBus.Handler _jmeEvents;
     private String _jfxSubscription;
     private String _jmeSubscription;
     private GuiManager _guiManager;
@@ -177,8 +178,11 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
     @Override public void simpleUpdate(final float tpf) {
         super.simpleUpdate(tpf);
-        if(EventBus.instance().hasEvents(_jfxSubscription)) {
+        if(_jfxSubscription!=null && EventBus.instance().hasEvents(_jfxSubscription)) {
             Platform.runLater(_events);
+        }
+        if(_jmeSubscription!=null && EventBus.instance().hasEvents(_jmeSubscription)) {
+            EventBus.instance().consume(_jmeSubscription, _jmeEvents);
         }
     }
 
@@ -189,12 +193,14 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     private void initState() {
-        _jfxSubscription = EventBus.instance().subscribe("jfx");
         _events = new Runnable() {
             @Override public void run() {
                 EventBus.instance().consume(_jfxSubscription, JfxMain.this);
             }
         };
+        _jmeEvents = new JmeEventHandler(assetManager, rootNode);
+        _jfxSubscription = EventBus.instance().subscribe("jfx");
+        _jmeSubscription = EventBus.instance().subscribe("jme");
 
         final Logic logic = new Logic(
             new Historian(
