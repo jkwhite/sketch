@@ -153,7 +153,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         menu.setTranslateX(Display.getWidth()/2-150);
         */
 
-        flyCam.setEnabled(false);
+        flyCam.setEnabled(true);
         inputManager.setCursorVisible(true);
         mouseInput.setCursorVisible(true);
         _guiManager = testguiManager;
@@ -198,7 +198,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
                 EventBus.instance().consume(_jfxSubscription, JfxMain.this);
             }
         };
-        _jmeEvents = new JmeEventHandler(assetManager, rootNode);
+        _jmeEvents = new JmeEventHandler(assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
         _jfxSubscription = EventBus.instance().subscribe("jfx");
         _jmeSubscription = EventBus.instance().subscribe("jme");
 

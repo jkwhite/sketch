@@ -12,6 +12,10 @@ public class ChangeEvent<E> extends Event {
         _new = newValue;
     }
 
+    public String getType() {
+        return _new.getClass().getSimpleName().toLowerCase();
+    }
+
     public E getFrom() {
         return _old;
     }

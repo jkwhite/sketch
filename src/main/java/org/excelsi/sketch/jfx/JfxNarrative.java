@@ -48,7 +48,7 @@ public class JfxNarrative extends Group {
     private void onEvent(final LogicEvent le) {
         List<Node> frontier = new LinkedList<>();
         frontier.addAll(getChildren());
-        System.err.println("sending event "+le+" to: "+getChildren());
+        //System.err.println("sending event "+le+" to: "+getChildren());
         while(!frontier.isEmpty()) {
             final Node child = frontier.remove(0);
             if(child instanceof Parent) {
