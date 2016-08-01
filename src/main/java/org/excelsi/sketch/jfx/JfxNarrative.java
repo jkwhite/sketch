@@ -20,6 +20,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import org.excelsi.sketch.Event;
 import org.excelsi.sketch.EventBus;
@@ -32,9 +34,12 @@ import org.excelsi.sketch.PauseEvent;
 
 
 public class JfxNarrative extends Group {
+    private static final Logger LOG = LoggerFactory.getLogger(JfxNarrative.class);
+
+
     public JfxNarrative() {
         addEventHandler(LogicEvent.TYPE, (le)->{
-            System.err.println("narrative got event: "+le);
+            LOG.debug("narrative got event: "+le);
             final Event e = le.e();
             if(e instanceof PauseEvent) {
                 pause((PauseEvent)e);
@@ -55,10 +60,10 @@ public class JfxNarrative extends Group {
                 frontier.addAll(((Parent)child).getChildrenUnmodifiable());
             }
             if(child instanceof Hud) {
-                System.err.println("sending event to: "+child);
+                //System.err.println("sending event to: "+child);
                 ((Hud)child).onEvent(le);
                 if(le.isConsumed()) {
-                    System.err.println("consumed");
+                    //System.err.println("consumed");
                     break;
                 }
             }

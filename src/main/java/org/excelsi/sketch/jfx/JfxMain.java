@@ -64,10 +64,15 @@ import org.excelsi.sketch.Title;
 import org.excelsi.sketch.BlockingNarrative;
 import org.excelsi.sketch.Logic;
 import org.excelsi.sketch.KeyEvent;
+import org.excelsi.sketch.BusInputSource;
+
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class JfxMain extends SimpleApplication implements EventBus.Handler {
-    //private EventBus _e;
+    private static final Logger LOG = LoggerFactory.getLogger(JfxMain.class);
     private Runnable _events;
     private EventBus.Handler _jmeEvents;
     private String _jfxSubscription;
@@ -76,6 +81,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
 
 
     public static void main(String[] args){
+        PropertyConfigurator.configure(JfxMain.class.getClassLoader().getResource("log4j.properties"));
         JfxMain app = new JfxMain();
         app.setPauseOnLostFocus(false);
         app.start();
@@ -86,7 +92,6 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     public void simpleInitApp() {
-        //_e = EventBus.instance();
         assetManager.registerLocator("/", ClasspathLocator.class);
 
         final GuiManager testguiManager = new GuiManager(this.guiNode, this.assetManager, this, true, new ProtonCursorProvider(this, this.assetManager, this.inputManager));
@@ -104,12 +109,12 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             }
 
             public void onKeyEvent(KeyInputEvent e) {
-                System.err.println(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
+                LOG.debug(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
                 //Thread.dumpStack();
                 boolean meta = e.getKeyCode()==219;
                 if(e.isPressed() && !meta) {
                     final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");
-                    EventBus.instance().post(ke);
+                    EventBus.instance().post("keys", ke);
                 }
             }
 
@@ -199,13 +204,14 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             }
         };
         _jmeEvents = new JmeEventHandler(assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
-        _jfxSubscription = EventBus.instance().subscribe("jfx");
-        _jmeSubscription = EventBus.instance().subscribe("jme");
+        _jfxSubscription = EventBus.instance().subscribe("keys", "jfx");
+        _jmeSubscription = EventBus.instance().subscribe("changes", "jme");
 
         final Logic logic = new Logic(
             new Historian(
                 new Context(
-                    new BlockingNarrative(EventBus.instance())
+                    new BlockingNarrative(EventBus.instance()),
+                    new BusInputSource()
                 )
                 .state(new Title())
             )

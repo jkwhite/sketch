@@ -57,4 +57,8 @@ public abstract class DefaultBot implements Bot {
     public Environment getEnvironment() {
         return _e;
     }
+
+    @Override public String getObjectType() {
+        return "bot";
+    }
 }

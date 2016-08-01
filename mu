@@ -20,7 +20,9 @@ uses:
     - tonegod.gui.jar
     #- jfx-1.dev*.jar
     - slf4j-api-1.7.7.jar
-    - slf4j-jdk14-1.7.7.jar
+    - slf4j-log4j12-1.7.7.jar
+    #- slf4j-jdk14-1.7.7.jar
+    - log4j-1.2.15.jar
     #- lwjgl*-1.1.2.jar
     #- liblwjgl*
     #- lwjgl.dll

@@ -4,6 +4,7 @@ package org.excelsi.sketch;
 import org.excelsi.matrix.Matrix;
 import org.excelsi.matrix.MatrixMSpace;
 import org.excelsi.matrix.NullMatrixMSpace;
+import org.excelsi.aether.Ground;
 
 
 public class ExpanseLevelGenerator implements LevelGenerator {
@@ -11,12 +12,12 @@ public class ExpanseLevelGenerator implements LevelGenerator {
         final Matrix m = new Matrix(recipe.getWidth(), recipe.getHeight());
         for(int i=0;i<recipe.getWidth();i++) {
             for(int j=0;j<recipe.getHeight();j++) {
-                if(recipe.getRandom().nextBoolean()) {
-                    MatrixMSpace ms = new NullMatrixMSpace();
-                    m.setSpace(ms, i, j);
+                if(true||recipe.getRandom().nextBoolean()) {
+                    //MatrixMSpace ms = new NullMatrixMSpace();
+                    m.setSpace(new Ground(), i, j);
                 }
             }
         }
-        return new Level(recipe.getName(), recipe.getOrdinal(), m);
+        return new MatrixLevel(recipe.getName(), recipe.getOrdinal(), m);
     }
 }

@@ -1,7 +1,9 @@
 package org.excelsi.sketch;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,24 +14,29 @@ public final class EventBus {
     private static final EventBus _b = new EventBus();
 
     private int _nextId;
+    private final Map<String,List<String>> _topics = new HashMap<>();
     private final Map<String,Queue<Event>> _queues = new HashMap<>();
-    //private final Queue<Event> _events = new ArrayBlockingQueue<>(1000);
 
 
     public static EventBus instance() {
         return _b;
     }
 
-    public String subscribe(final String consumer) {
-        final String subscription = consumer+"-"+_nextId++;
+    public String subscribe(final String topic, final String consumer) {
+        final String subscription = topic+"-"+consumer+"-"+_nextId++;
+        List<String> subs = _topics.get(topic);
+        if(subs==null) {
+            subs = new ArrayList<>();
+            _topics.put(topic, subs);
+        }
+        subs.add(subscription);
         _queues.put(subscription, new ArrayBlockingQueue<>(1000));
         return subscription;
     }
 
-    public <E extends Event> E await(E e) {
+    public <E extends Event> E await(final String topic, final E e) {
         synchronized(e) {
-            //_events.add(e);
-            post(e);
+            post(topic, e);
             try {
                 e.wait();
             }
@@ -39,10 +46,16 @@ public final class EventBus {
         return e;
     }
 
-    public void post(Event e) {
-        //_events.add(e);
-        for(final Queue<Event> q:_queues.values()) {
-            q.add(e);
+    public void post(final String topic, final Event e) {
+        final List<String> subs = _topics.get(topic);
+        if(subs!=null) {
+            for(final String sub:subs) {
+                final Queue<Event> q = _queues.get(sub);
+                synchronized(q) {
+                    q.add(e);
+                    q.notify();
+                }
+            }
         }
     }
 
@@ -52,6 +65,25 @@ public final class EventBus {
             throw new IllegalArgumentException("no such subscription '"+subscription+"'");
         }
         return !q.isEmpty();
+    }
+
+    public Event poll(final String subscription) {
+        final Queue<Event> q = _queues.get(subscription);
+        while(q.isEmpty()) {
+            synchronized(q) {
+                try {
+                    q.wait();
+                }
+                catch(InterruptedException e) {
+                }
+            }
+        }
+        if(!q.isEmpty()) {
+            return q.remove();
+        }
+        else {
+            throw new IllegalStateException("empty queue after notify: "+subscription);
+        }
     }
 
     public void consume(final String subscription, Handler h) {

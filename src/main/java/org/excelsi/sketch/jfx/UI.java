@@ -11,7 +11,7 @@ import com.jme3.asset.AssetManager;
 public class UI {
     public static NodeFactory nodeFactory(final AssetManager assets) {
         final Map<String,NodeFactory> nfs = new HashMap<>();
-        nfs.put(Level.class.getName(), new LevelNodeFactory());
+        nfs.put("level", new LevelNodeFactory());
         return new CompositeNodeFactory(nfs, new PlaceholderNodeFactory(assets));
     }
 }

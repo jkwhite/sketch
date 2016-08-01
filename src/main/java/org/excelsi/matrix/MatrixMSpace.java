@@ -46,6 +46,10 @@ public abstract class MatrixMSpace implements MSpace, Cloneable {
     public MatrixMSpace() {
     }
 
+    @Override public String getObjectType() {
+        return "space";
+    }
+
     public MatrixMSpace clone() {
         try {
             return (MatrixMSpace) super.clone();
@@ -517,6 +521,10 @@ public abstract class MatrixMSpace implements MSpace, Cloneable {
             }
         }
         return false;
+    }
+
+    @Override public Environs getEnvirons() {
+        return _m;
     }
 
     public MSpace[] spaces() {

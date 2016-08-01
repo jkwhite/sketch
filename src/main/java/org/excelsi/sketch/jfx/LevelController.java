@@ -4,6 +4,7 @@ package org.excelsi.sketch.jfx;
 import org.excelsi.matrix.MSpace;
 import org.excelsi.matrix.MatrixMSpace;
 import org.excelsi.sketch.Level;
+import org.excelsi.sketch.MatrixLevel;
 import org.excelsi.sketch.ChangeEvent;
 
 import com.jme3.scene.Node;
@@ -41,6 +42,11 @@ public class LevelController implements Controller<Level> {
                     final Spatial ms = c.getNodeFactory().createNode("x", mms);
                     ms.setLocalTranslation(MULTIPLIER*mms.getI(), 0, MULTIPLIER*mms.getJ());
                     n.attachChild(ms);
+                    if(mms.getOccupant()!=null) {
+                        final Spatial bot = c.getNodeFactory().createNode("x", mms.getOccupant());
+                        bot.setLocalTranslation(MULTIPLIER*mms.getI(), 0.5f, MULTIPLIER*mms.getJ());
+                        n.attachChild(bot);
+                    }
                 }
             }
         }

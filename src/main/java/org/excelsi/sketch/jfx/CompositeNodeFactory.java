@@ -5,9 +5,10 @@ import java.util.Map;
 
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import org.excelsi.matrix.Typed;
 
 
-public class CompositeNodeFactory implements NodeFactory {
+public class CompositeNodeFactory implements NodeFactory<Typed> {
     private final Map<String,NodeFactory> _nfs;
     private final NodeFactory _fallback;
 
@@ -17,11 +18,11 @@ public class CompositeNodeFactory implements NodeFactory {
         _fallback = fallback;
     }
 
-    @Override public Spatial createNode(final String name, final Object s) {
+    @Override public Spatial createNode(final String name, final Typed s) {
         if(s==null) {
             return _fallback.createNode(name, s);
         }
-        final NodeFactory nf = _nfs.get(s.getClass().getName());
+        final NodeFactory nf = _nfs.get(s.getObjectType());
         if(nf!=null) {
             return nf.createNode(name, s);
         }

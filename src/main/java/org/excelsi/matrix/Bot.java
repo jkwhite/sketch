@@ -22,7 +22,7 @@ package org.excelsi.matrix;
 import java.util.List;
 
 
-public interface Bot extends java.io.Serializable {
+public interface Bot extends Typed, java.io.Serializable {
     void setEnvironment(Environment e);
     Environment getEnvironment();
     void act();

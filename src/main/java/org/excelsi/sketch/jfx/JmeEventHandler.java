@@ -17,8 +17,12 @@ import com.jme3.scene.shape.Box;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 
 public class JmeEventHandler implements EventBus.Handler {
+    private static final Logger LOG = LoggerFactory.getLogger(JfxNarrative.class);
     private final Node _root;
     //private final Map<Object,Controller> _controllers = new HashMap<>();
     private final SceneContext _ctx;
@@ -36,7 +40,7 @@ public class JmeEventHandler implements EventBus.Handler {
     }
 
     @Override public void handleEvent(final Event e) {
-        System.err.println("jme got event: "+e);
+        LOG.debug("jme got event: {}", e);
         if(e instanceof ChangeEvent) {
             change((ChangeEvent)e);
         }
