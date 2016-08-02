@@ -35,7 +35,7 @@ public class MatrixLevel implements Level, MatrixListener, MSpaceListener {
     @Override public void tick() {
         NHBot first = null;
         while(true) {
-            System.err.println("QUEUE: "+_queue);
+            //System.err.println("QUEUE: "+_queue);
             NHBot acting = _queue.next();
             if(first!=null && first==acting) {
                 break;
