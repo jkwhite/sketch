@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.excelsi.matrix.*;
+import org.excelsi.sketch.Context;
 import java.util.EnumSet;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -151,8 +152,12 @@ public class NPC extends DefaultNHBot {
         return r!=null;
     }
 
+    @Override public void act(final Context c) {
+        act();
+    }
+
     private boolean _last = Rand.om.nextBoolean();
-    public void act() {
+    @Override public void act() {
         if(isOccupied()) {
             return;
         }

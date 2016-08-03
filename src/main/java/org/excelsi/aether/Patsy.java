@@ -23,6 +23,7 @@ package org.excelsi.aether;
 import java.util.*;
 
 import org.excelsi.matrix.*;
+import org.excelsi.sketch.Context;
 
 
 public class Patsy extends DefaultNHBot {
@@ -334,9 +335,12 @@ public class Patsy extends DefaultNHBot {
     }
 
     public void act() {
+    }
+
+    public void act(final Context c) {
         //System.err.println("**************** PATSY AWAITING");
         final GameAction a = _inputSource.nextAction();
-        a.perform();
+        a.perform(c);
         //System.err.println("**************** PATSY DONE");
     }
 

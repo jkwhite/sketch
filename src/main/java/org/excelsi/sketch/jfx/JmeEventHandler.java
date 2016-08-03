@@ -49,26 +49,5 @@ public class JmeEventHandler implements EventBus.Handler {
     private void change(final ChangeEvent e) {
         Controller c = _cfactory.createController(e.getType());
         c.changed(_ctx, e);
-        //if(e.getTo() instanceof Level) {
-            //level((Level)e.getTo());
-        //}
-    }
-
-    private void level(final Level level) {
-        //Sphere s = new Sphere(10, 10, 10);
-        /*
-        Box s = new Box(Vector3f.ZERO, 1, 1, 1);
-        Geometry g = new Geometry("s", s);
-        Material mat = new Material(_assets, "Common/MatDefs/Misc/Unshaded.j3md");
-        g.setMaterial(mat);
-        _root.attachChild(g);
-        System.err.println("attached sphere");
-        */
-        //Controller c = _controllers.get(level);
-        //if(c==null) {
-            //c = _cfactory.createController(level);
-            //_controllers.put(level, c);
-        //}
-        //c.handle(level);
     }
 }

@@ -21,6 +21,7 @@ import org.excelsi.sketch.Action;
 import org.excelsi.sketch.ActionEvent;
 import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.AbstractAction;
+import org.excelsi.sketch.Context;
 
 
 public class JfxWorld extends HudNode {
@@ -31,6 +32,7 @@ public class JfxWorld extends HudNode {
     public JfxWorld() {
         _actions = new HashMap<>();
         _actions.put(new Keymap("t"), new DebugAction());
+        _actions.put(new Keymap("q"), new QuitAction());
         LOG.debug("actionmap: "+_actions);
         addLogicHandler((le)->{
             if(le.e() instanceof KeyEvent) {
@@ -54,9 +56,24 @@ public class JfxWorld extends HudNode {
 
     private static class DebugAction extends AbstractAction {
         @Override public void perform() {
+        }
+
+        @Override public void perform(final Context c) {
             System.err.println("____ DEBUG ACTION START ____");
             Thread.dumpStack();
             System.err.println("_____ DEBUG ACTION END _____");
+        }
+    }
+
+    private static class QuitAction extends AbstractAction {
+        @Override public void perform(final Context c) {
+            c.n().message("Really quit?");
+        }
+
+        @Override public void perform() {
+            System.err.println("____ QUIT ACTION START ____");
+            Thread.dumpStack();
+            System.err.println("_____ QUIT ACTION END _____");
         }
     }
 }

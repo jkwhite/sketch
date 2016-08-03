@@ -34,7 +34,7 @@ public class Skelevel implements Level {
         return getLevel().getMatrix();
     }
 
-    @Override public void tick() {
+    @Override public void tick(final Context c) {
     }
 
     public LevelRecipe getRecipe() {

@@ -32,7 +32,7 @@ public class MatrixLevel implements Level, MatrixListener, MSpaceListener {
         }
     }
 
-    @Override public void tick() {
+    @Override public void tick(final Context c) {
         NHBot first = null;
         while(true) {
             //System.err.println("QUEUE: "+_queue);
@@ -45,7 +45,7 @@ public class MatrixLevel implements Level, MatrixListener, MSpaceListener {
                 //break;
             }
             Actor.setCurrent(acting);
-            acting.act();
+            acting.act(c);
             Actor.setCurrent(null);
             if(first==null) {
                 first = acting;

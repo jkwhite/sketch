@@ -20,7 +20,14 @@
 package org.excelsi.aether;
 
 
+import org.excelsi.sketch.Context;
+
+
 public abstract class AbstractGameAction implements GameAction {
+    @Override public void perform(final Context c) {
+        perform();
+    }
+
     public boolean isRepeat() {
         return false;
     }

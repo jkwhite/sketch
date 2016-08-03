@@ -22,6 +22,7 @@ package org.excelsi.aether;
 
 import org.excelsi.matrix.Bot;
 import org.excelsi.matrix.Direction;
+import org.excelsi.sketch.Context;
 
 
 public abstract class DefaultNHBotAction implements NHBotAction {
@@ -37,6 +38,10 @@ public abstract class DefaultNHBotAction implements NHBotAction {
 
     public final NHBot getBot() {
         return _bot;
+    }
+
+    @Override public void perform(final Context c) {
+        perform();
     }
 
     public boolean isRepeat() {
