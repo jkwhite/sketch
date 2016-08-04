@@ -31,7 +31,7 @@ public class World implements State {
         _bulk.addLevel(l1);
         l1.getMatrix().getSpace(0,0).setOccupant(_player);
         setLevel(l1);
-        while(true) {
+        while(c.getState()==this) {
             _level.tick(c);
             c.n().pause();
         }

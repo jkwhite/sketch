@@ -22,6 +22,7 @@ import org.excelsi.sketch.ActionEvent;
 import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.AbstractAction;
 import org.excelsi.sketch.Context;
+import org.excelsi.sketch.Quit;
 
 
 public class JfxWorld extends HudNode {
@@ -67,7 +68,9 @@ public class JfxWorld extends HudNode {
 
     private static class QuitAction extends AbstractAction {
         @Override public void perform(final Context c) {
-            c.n().message("Really quit?");
+            if(c.n().confirm("Really quit?")) {
+                c.state(new Quit());
+            }
         }
 
         @Override public void perform() {
