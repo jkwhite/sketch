@@ -13,6 +13,7 @@ public class JfxStatus extends HudNode {
     public JfxStatus() {
         super("status");
         addLogicHandler((le)->{
+            System.err.println("*** JFXSTATUS*******: "+le);
             if(le.e() instanceof ChangeEvent) {
                 final ChangeEvent e = (ChangeEvent) le.e();
                 if(e.getTo() instanceof Level) {

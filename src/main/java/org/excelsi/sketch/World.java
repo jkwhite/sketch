@@ -41,5 +41,6 @@ public class World implements State {
         final Level old = _level;
         _level = level;
         EventBus.instance().post("changes", new ChangeEvent<Level>(this, "level", old, _level));
+        EventBus.instance().post("keys", new ChangeEvent<Level>(this, "level", old, _level));
     }
 }

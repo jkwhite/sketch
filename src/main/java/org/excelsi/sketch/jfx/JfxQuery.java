@@ -23,7 +23,7 @@ import org.excelsi.sketch.KeyEvent;
 
 public class JfxQuery extends HudRegion {
     public JfxQuery(final QueryEvent e) {
-        getStyleClass().add("menu");
+        getStyleClass().add("query");
         addLogicHandler((le)->{
             le.consume();
             final Event ke = le.e();

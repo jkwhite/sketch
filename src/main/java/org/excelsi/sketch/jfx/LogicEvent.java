@@ -27,4 +27,9 @@ public final class LogicEvent extends javafx.event.Event {
     @Override public String toString() {
         return "logic::{e:"+_e+"}";
     }
+
+    public void consume() {
+        System.err.println("**** CONSUMED **** "+this);
+        super.consume();
+    }
 }

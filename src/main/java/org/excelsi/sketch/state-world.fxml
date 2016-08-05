@@ -17,17 +17,19 @@
 <?import org.excelsi.sketch.jfx.*?>
 
 
-<BorderPane xmlns:fx='http://javafx.com/fxml' fx:id='title_root' prefWidth="%screen_width" prefHeight="%screen_height">
-    <right>
+<StackPane xmlns:fx='http://javafx.com/fxml' fx:id='title_root' prefWidth="%screen_width" prefHeight="%screen_height">
+    <children>
         <JfxSelector/>
-    </right>
-    <bottom>
-        <VBox prefWidth='%screen_width' styleClass='status'>
-            <children>
-                <JfxMessages/>
-                <JfxWorld/>
-                <JfxStatus/>
-            </children>
-        </VBox>
-    </bottom>
-</BorderPane>
+        <JfxMessages/>
+        <JfxWorld/>
+        <BorderPane prefWidth="200" prefHeight="200">
+            <bottom>
+                <VBox styleClass='status'>
+                    <children>
+                        <JfxStatus/>
+                    </children>
+                </VBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</StackPane>
