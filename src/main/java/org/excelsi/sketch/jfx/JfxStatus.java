@@ -6,18 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Group;
 
 import org.excelsi.sketch.ChangeEvent;
-import org.excelsi.sketch.Level;
+import org.excelsi.sketch.Stage;
 
 
 public class JfxStatus extends HudNode {
     public JfxStatus() {
         super("status");
         addLogicHandler((le)->{
-            System.err.println("*** JFXSTATUS*******: "+le);
             if(le.e() instanceof ChangeEvent) {
                 final ChangeEvent e = (ChangeEvent) le.e();
-                if(e.getTo() instanceof Level) {
-                    Level level = (Level) e.getTo();
+                if(e.getTo() instanceof Stage) {
+                    final Stage level = (Stage) e.getTo();
                     if(!getChildren().isEmpty()) {
                         getChildren().remove(0);
                     }

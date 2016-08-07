@@ -1,7 +1,7 @@
 package org.excelsi.sketch;
 
 
-public class Historian implements Temporal {
+public class Historian {
     private Context _context;
 
 
@@ -9,7 +9,7 @@ public class Historian implements Temporal {
         _context = context;
     }
 
-    @Override public void tick() {
+    public void tick() {
         _context.getState().run(_context);
     }
 }

@@ -10,11 +10,11 @@ import com.jme3.scene.shape.Box;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 
-import org.excelsi.sketch.Level;
+import org.excelsi.sketch.Stage;
 
 
-public class LevelNodeFactory implements NodeFactory<Level> {
-    @Override public Spatial createNode(final String name, final Level s) {
+public class LevelNodeFactory implements NodeFactory<Stage> {
+    @Override public Spatial createNode(final String name, final Stage s) {
         return new Node(name);
     }
 }

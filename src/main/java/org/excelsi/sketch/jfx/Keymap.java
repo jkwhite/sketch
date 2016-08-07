@@ -5,7 +5,7 @@ public class Keymap {
     private final String _k;
 
 
-    public Keymap(String k) {
+    public Keymap(final String k) {
         _k = k;
     }
 

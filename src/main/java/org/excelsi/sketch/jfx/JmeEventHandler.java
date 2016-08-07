@@ -7,6 +7,7 @@ import java.util.Map;
 import org.excelsi.sketch.Event;
 import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.ChangeEvent;
+import org.excelsi.sketch.ActionEvent;
 import org.excelsi.sketch.Level;
 
 import com.jme3.material.Material;
@@ -16,6 +17,7 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.scene.shape.Box;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -31,12 +33,15 @@ public class JmeEventHandler implements EventBus.Handler {
     private final AssetManager _assets;
 
 
-    public JmeEventHandler(final AssetManager assets, final ControllerFactory cfactory, final NodeFactory nfactory, final Node root) {
+    public JmeEventHandler(final Camera camera, final AssetManager assets, final ControllerFactory cfactory, final NodeFactory nfactory, final Node root) {
         _assets = assets;
         _cfactory = cfactory;
         _nfactory = nfactory;
         _root = root;
-        _ctx = new SceneContext(_root, _nfactory);
+        _ctx = new SceneContext(camera, _root, _nfactory);
+        final CloseView v = new CloseView("camera", _root, null, camera);
+        v.activate();
+        _ctx.addNode(v);
     }
 
     @Override public void handleEvent(final Event e) {
@@ -44,10 +49,18 @@ public class JmeEventHandler implements EventBus.Handler {
         if(e instanceof ChangeEvent) {
             change((ChangeEvent)e);
         }
+        else if(e instanceof ActionEvent) {
+            uiAction((ActionEvent)e);
+        }
     }
 
     private void change(final ChangeEvent e) {
         Controller c = _cfactory.createController(e.getType());
         c.changed(_ctx, e);
+    }
+
+    private void uiAction(final ActionEvent e) {
+        final UIAction a = (UIAction) e.getAction();
+        a.perform(_ctx);
     }
 }

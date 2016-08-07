@@ -6,15 +6,18 @@ import java.util.Map;
 
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.renderer.Camera;
 
 
-public class SceneContext {
+public final class SceneContext {
     private final NodeFactory _nfactory;
     private final Map<String,Spatial> _objects = new HashMap<>();
     private final Node _root;
+    private final Camera _camera;
 
 
-    public SceneContext(final Node root, final NodeFactory nfactory) {
+    public SceneContext(final Camera camera, final Node root, final NodeFactory nfactory) {
+        _camera = camera;
         _nfactory = nfactory;
         addNode(root);
         _root = root;
@@ -22,6 +25,10 @@ public class SceneContext {
 
     public Node getRoot() {
         return _root;
+    }
+
+    public Camera getCamera() {
+        return _camera;
     }
 
     public NodeFactory getNodeFactory() {

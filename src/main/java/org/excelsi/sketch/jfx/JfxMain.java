@@ -77,6 +77,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     private EventBus.Handler _jmeEvents;
     private String _jfxSubscription;
     private String _jmeSubscription;
+    private String _jmeSubscription2;
     private GuiManager _guiManager;
 
 
@@ -158,7 +159,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         menu.setTranslateX(Display.getWidth()/2-150);
         */
 
-        flyCam.setEnabled(true);
+        flyCam.setEnabled(false);
         inputManager.setCursorVisible(true);
         mouseInput.setCursorVisible(true);
         _guiManager = testguiManager;
@@ -189,6 +190,9 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         if(_jmeSubscription!=null && EventBus.instance().hasEvents(_jmeSubscription)) {
             EventBus.instance().consume(_jmeSubscription, _jmeEvents);
         }
+        if(_jmeSubscription2!=null && EventBus.instance().hasEvents(_jmeSubscription2)) {
+            EventBus.instance().consume(_jmeSubscription2, _jmeEvents);
+        }
     }
 
     @Override public void handleEvent(final Event e) {
@@ -203,7 +207,8 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
                 EventBus.instance().consume(_jfxSubscription, JfxMain.this);
             }
         };
-        _jmeEvents = new JmeEventHandler(assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
+        _jmeEvents = new JmeEventHandler(getCamera(), assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
+        _jmeSubscription2 = EventBus.instance().subscribe("jme", "jme");
         _jfxSubscription = EventBus.instance().subscribe("keys", "jfx");
         _jmeSubscription = EventBus.instance().subscribe("changes", "jme");
 

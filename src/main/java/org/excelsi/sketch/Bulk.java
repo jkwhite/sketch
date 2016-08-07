@@ -8,14 +8,14 @@ import java.util.List;
 
 
 public class Bulk {
-    private final Map<Integer,Level> _levels = new HashMap<>();
+    private final Map<Integer,Stage> _levels = new HashMap<>();
 
 
-    public void addLevel(Level level) {
+    public void addLevel(Stage level) {
         _levels.put(level.getOrdinal(), level);
     }
 
-    public Level findLevel(final int ordinal) {
+    public Stage findLevel(final int ordinal) {
         return _levels.get(ordinal);
     }
 }

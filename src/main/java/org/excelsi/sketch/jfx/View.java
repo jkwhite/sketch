@@ -17,26 +17,22 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
-package org.excelsi.matrix;
-
-import java.util.List;
+package org.excelsi.sketch.jfx;
 
 
-public interface Environment extends java.io.Serializable {
-    Bot getClosest();
-    void approach(Bot b, int max);
-    void approach(Bot b, int max, boolean overrun);
-    void move(Direction d);
-    void forward();
-    void backward();
-    void turnLeft();
-    void turnRight();
-    void face(Direction d);
-    void face(MSpace m);
-    void face(Bot b);
-    void faceAway(Bot b);
-    Direction getFacing();
-    void die(MSource s);
-    List getListeners();
-    MSpace getSpace();
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
+
+
+interface View {
+    public static final String NODE_CAMERA = "camera";
+
+    void activate();
+    void deactivate();
+    void center(Vector3f pos);
+    void zoomIn();
+    void zoomOut();
+    String next();
+    void setPlayer(Spatial player);
+    boolean isOverhead();
 }

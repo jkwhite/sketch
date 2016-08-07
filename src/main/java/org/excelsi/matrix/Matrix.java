@@ -43,6 +43,10 @@ public class Matrix extends MapEnvirons implements java.io.Serializable, MSpaceL
         _width = m;
     }
 
+    @Override public String getObjectType() {
+        return "matrix";
+    }
+
     //@Override public String findString(String name) {
         //return _env.findString(name);
     //}

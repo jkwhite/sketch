@@ -27,6 +27,6 @@ public class ChangeEvent<E> extends Event {
     }
 
     @Override public String toString() {
-        return "change::{from:"+_old+", to:"+_new+"}";
+        return "change::"+_type+"::{from:"+_old+", to:"+_new+"}";
     }
 }

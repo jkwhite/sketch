@@ -2,12 +2,14 @@ package org.excelsi.sketch;
 
 
 import org.excelsi.aether.InputSource;
+import org.excelsi.aether.NHBot;
 
 
 public final class Context {
     private final Narrative _n;
     private State _state = new NullState();
     private InputSource _input;
+    private NHBot _actor;
 
 
     public Context(final Narrative n, final InputSource input) {
@@ -45,5 +47,13 @@ public final class Context {
     public Context inputSource(final InputSource input) {
         _input= input;
         return this;
+    }
+
+    public void setActor(final NHBot b) {
+        _actor = b;
+    }
+
+    public NHBot getActor() {
+        return _actor;
     }
 }

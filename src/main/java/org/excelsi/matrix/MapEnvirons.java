@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 
-public abstract class MapEnvirons implements Environs {
+public abstract class MapEnvirons extends Id implements Environs {
     private final Map<String,Object> _props = new HashMap<>();
 
 

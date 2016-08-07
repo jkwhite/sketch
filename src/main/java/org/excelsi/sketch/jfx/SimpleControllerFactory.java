@@ -7,6 +7,8 @@ import org.excelsi.sketch.Level;
 public class SimpleControllerFactory implements ControllerFactory {
     @Override public Controller createController(final String type) {
         switch(type) {
+            case "bot":
+                return new BotController();
             case "level":
                 return new LevelController();
             default:
