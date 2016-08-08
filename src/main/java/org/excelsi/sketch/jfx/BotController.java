@@ -13,12 +13,6 @@ import com.jme3.scene.Spatial;
 
 
 public class BotController implements Controller<MSpace> {
-    public static final int MULTIPLIER = 2;
-
-    private static final String ROOT = "root";
-    private static final String PREFIX = "level-";
-
-
     @Override public void added(final SceneContext c, final MSpace b) {
     }
 
@@ -30,20 +24,14 @@ public class BotController implements Controller<MSpace> {
             final MoveEvent me = (MoveEvent) e;
             final NHBot b = (NHBot) me.getBot();
             final Spatial s = c.getSpatial(me.getBot().getId());
-            final MatrixMSpace mms = (MatrixMSpace) me.getBot().getEnvironment().getSpace();
-            s.setLocalTranslation(MULTIPLIER*mms.getI(), 0.5f, MULTIPLIER*mms.getJ());
+            Spaces.translate(me.getBot().getEnvironment().getSpace(), s);
             if(b.isPlayer()) {
-                updateView(c, mms);
+                updateView(c, me.getBot().getEnvironment().getSpace());
             }
         }
     }
 
-    private void updateView(final SceneContext c, final MatrixMSpace m) {
-        final CloseView v = (CloseView) c.getNode("camera");
-        v.center(getTranslation(m));
-    }
-
-    private Vector3f getTranslation(MatrixMSpace m) {
-        return new Vector3f(MULTIPLIER*m.getI(), 0.5f, MULTIPLIER*m.getJ());
+    private void updateView(final SceneContext c, final MSpace m) {
+        c.<CloseView>getNode(View.NODE_CAMERA).center(Spaces.translation(m));
     }
 }

@@ -12,9 +12,6 @@ import com.jme3.scene.Spatial;
 
 
 public class LevelController implements Controller<Stage> {
-    public static final int MULTIPLIER = 2;
-
-    private static final String ROOT = "root";
     private static final String PREFIX = "level-";
 
 
@@ -39,25 +36,29 @@ public class LevelController implements Controller<Stage> {
             for(final MSpace m:e.getTo().getMatrix().spaces()) {
                 final MatrixMSpace mms = (MatrixMSpace) m;
                 if(mms!=null) {
-                    final Spatial ms = c.getNodeFactory().createNode("x", mms);
-                    ms.setLocalTranslation(MULTIPLIER*mms.getI(), 0, MULTIPLIER*mms.getJ());
-                    n.attachChild(ms);
-                    if(mms.getOccupant()!=null) {
-                        final Spatial bot = c.getNodeFactory().createNode(mms.getOccupant().getId(), mms.getOccupant());
-                        bot.setLocalTranslation(MULTIPLIER*mms.getI(), 0.5f, MULTIPLIER*mms.getJ());
-                        n.attachChild(bot);
-                        c.addNode(bot);
-                        if(((NHSpace)mms).getOccupant().isPlayer()) {
-                            attachPatsy(c, bot);
-                        }
-                    }
+                    createSpace(c, n, mms);
                 }
             }
         }
     }
 
+    private Spatial createSpace(final SceneContext c, final Node n, final MatrixMSpace mms) {
+        final Spatial ms = c.getNodeFactory().createNode("x", mms);
+        Spaces.translate(mms, ms);
+        n.attachChild(ms);
+        if(mms.getOccupant()!=null) {
+            final Spatial bot = c.getNodeFactory().createNode(mms.getOccupant().getId(), mms.getOccupant());
+            Spaces.translate(mms, bot);
+            n.attachChild(bot);
+            c.addNode(bot);
+            if(((NHSpace)mms).getOccupant().isPlayer()) {
+                attachPatsy(c, bot);
+            }
+        }
+        return ms;
+    }
+
     private void attachPatsy(final SceneContext c, final Spatial patsy) {
-        final CloseView v = (CloseView) c.getNode("camera");
-        v.setPlayer(patsy);
+        c.<CloseView>getNode(View.NODE_CAMERA).setPlayer(patsy);
     }
 }

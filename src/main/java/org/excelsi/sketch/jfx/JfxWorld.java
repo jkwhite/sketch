@@ -40,10 +40,10 @@ public class JfxWorld extends HudNode {
         _actions.put(new Keymap("k"), new Patsy.North());
         _actions.put(new Keymap("l"), new Patsy.East());
 
-        //_actions.put(new Keymap("y"), new Patsy.Northwest());
+        _actions.put(new Keymap("y"), new Patsy.Northwest());
         _actions.put(new Keymap("u"), new Patsy.Northeast());
         _actions.put(new Keymap("b"), new Patsy.Southwest());
-        //_actions.put(new Keymap("n"), new Patsy.Southeast());
+        _actions.put(new Keymap("n"), new Patsy.Southeast());
 
         _actions.put(new Keymap("="), new ZoomInAction());
         _actions.put(new Keymap("-"), new ZoomOutAction());

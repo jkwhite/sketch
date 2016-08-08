@@ -50,7 +50,8 @@
 }
 
 .query {
-    padding: 20px;
+    -fx-padding: 10px;
+    -fx-font: normal normal 12pt "Palatino";
     -fx-background-image: url('/org/excelsi/sketch/parchment-small2.jpg');
 }
 

@@ -29,9 +29,14 @@ public final class EventBus {
             subs = new ArrayList<>();
             _topics.put(topic, subs);
         }
-        subs.add(subscription);
-        _queues.put(subscription, new ArrayBlockingQueue<>(1000));
-        return subscription;
+        //subs.add(subscription);
+        //_queues.put(subscription, new ArrayBlockingQueue<>(1000));
+        subs.add(consumer);
+        if(!_queues.containsKey(consumer)) {
+            _queues.put(consumer, new ArrayBlockingQueue<>(1000));
+        }
+        //return subscription;
+        return consumer;
     }
 
     public <E extends Event> E await(final String topic, final E e) {

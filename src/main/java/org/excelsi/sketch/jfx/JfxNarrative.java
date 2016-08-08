@@ -53,28 +53,19 @@ public class JfxNarrative extends Group {
     private void onEvent(final LogicEvent le) {
         List<Node> frontier = new LinkedList<>();
         frontier.addAll(getChildren());
-        //System.err.println("sending event "+le+" to: "+getChildren());
         while(!frontier.isEmpty()) {
             final Node child = frontier.remove(0);
             if(child instanceof Parent) {
-                frontier.addAll(((Parent)child).getChildrenUnmodifiable());
+                frontier.addAll(0, ((Parent)child).getChildrenUnmodifiable());
             }
             if(child instanceof Hud) {
-                //System.err.println("sending event to: "+child);
                 ((Hud)child).onEvent(le);
                 if(le.isConsumed()) {
-                    //System.err.println("consumed");
                     break;
                 }
             }
         }
     }
-
-    //private void select(SelectEvent e) {
-        //final JfxMenu menu = new JfxMenu(e, e.getMenu());
-        //getChildren().add(menu);
-        //System.err.println("added menu");
-    //}
 
     private void pause(PauseEvent e) {
         final JfxPause m = new JfxPause("-- More --", e);

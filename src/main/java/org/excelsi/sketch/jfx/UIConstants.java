@@ -5,6 +5,9 @@ import com.jme3.math.Vector3f;
 
 
 public class UIConstants {
+    public static final String QUEUE_JME = "jme";
+    public static final String QUEUE_JFX = "jfx";
+
     public static final float SCALE = 2f;
     public static final float HORIZ_RATIO = SCALE;
     public static final float VERT_MULT = 1.8f;

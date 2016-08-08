@@ -77,7 +77,6 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     private EventBus.Handler _jmeEvents;
     private String _jfxSubscription;
     private String _jmeSubscription;
-    private String _jmeSubscription2;
     private GuiManager _guiManager;
 
 
@@ -95,8 +94,8 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     public void simpleInitApp() {
         assetManager.registerLocator("/", ClasspathLocator.class);
 
-        final GuiManager testguiManager = new GuiManager(this.guiNode, this.assetManager, this, true, new ProtonCursorProvider(this, this.assetManager, this.inputManager));
-        testguiManager.setEverListeningRawInputListener(new RawInputListener() {
+        final GuiManager guiManager = new GuiManager(this.guiNode, this.assetManager, this, true, new ProtonCursorProvider(this, this.assetManager, this.inputManager));
+        guiManager.setEverListeningRawInputListener(new RawInputListener() {
             public void beginInput() {
             }
 
@@ -110,7 +109,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             }
 
             public void onKeyEvent(KeyInputEvent e) {
-                LOG.debug(String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
+                LOG.debug(System.nanoTime()+" "+String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
                 //Thread.dumpStack();
                 boolean meta = e.getKeyCode()==219;
                 if(e.isPressed() && !meta) {
@@ -128,45 +127,21 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             public void onTouchEvent(TouchEvent e) {
             }
         });
-        this.inputManager.addRawInputListener(testguiManager.getInputRedirector());
+        //this.inputManager.addRawInputListener(guiManager.getInputRedirector());
         try {
             Thread.sleep(200);
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }
 
-        /*
-        // 256 x 256
-        ImageView tlogo = new ImageView(new Image("/org/excelsi/sketch/title-image3.png"));
-        // 473 × 116
-        ImageView ttitle = new ImageView(new Image("/org/excelsi/sketch/title-text4.png"));
-
-        final VBox title = new VBox();
-        title.setSpacing(20);
-        title.getChildren().add(tlogo);
-        title.getChildren().add(ttitle);
-        Menu menu = new Menu<Runnable>(
-            (item) -> { item.item().run(); return null; },
-            new MenuItem<Runnable>("n", "New game", null),
-            new MenuItem<Runnable>("l", "Load game", null),
-            new MenuItem<Runnable>("h", "High scores", null),
-            new MenuItem<Runnable>("q", "Quit", () -> { System.exit(0); })
-        );
-        title.setAlignment(Pos.CENTER);
-        title.setTranslateX(Display.getWidth()/2-473/2);
-        title.setTranslateY(20);
-        menu.setTranslateY(Display.getHeight()/2+60);
-        menu.setTranslateX(Display.getWidth()/2-150);
-        */
-
         flyCam.setEnabled(false);
         inputManager.setCursorVisible(true);
         mouseInput.setCursorVisible(true);
-        _guiManager = testguiManager;
+        _guiManager = guiManager;
 
         Platform.runLater(new Runnable() {
             public void run() {
-                Scene scene = testguiManager.getRootGroup().getScene();
+                Scene scene = guiManager.getRootGroup().getScene();
                 scene.getStylesheets().add("/org/excelsi/sketch/tower-hud.css");
 
                 final FXMLLoader loader = new FXMLLoader();
@@ -190,9 +165,6 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
         if(_jmeSubscription!=null && EventBus.instance().hasEvents(_jmeSubscription)) {
             EventBus.instance().consume(_jmeSubscription, _jmeEvents);
         }
-        if(_jmeSubscription2!=null && EventBus.instance().hasEvents(_jmeSubscription2)) {
-            EventBus.instance().consume(_jmeSubscription2, _jmeEvents);
-        }
     }
 
     @Override public void handleEvent(final Event e) {
@@ -208,9 +180,9 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             }
         };
         _jmeEvents = new JmeEventHandler(getCamera(), assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
-        _jmeSubscription2 = EventBus.instance().subscribe("jme", "jme");
-        _jfxSubscription = EventBus.instance().subscribe("keys", "jfx");
-        _jmeSubscription = EventBus.instance().subscribe("changes", "jme");
+        EventBus.instance().subscribe(UIConstants.QUEUE_JME, UIConstants.QUEUE_JME);
+        _jfxSubscription = EventBus.instance().subscribe("keys", UIConstants.QUEUE_JFX);
+        _jmeSubscription = EventBus.instance().subscribe("changes", UIConstants.QUEUE_JME);
 
         final Logic logic = new Logic(
             new Historian(

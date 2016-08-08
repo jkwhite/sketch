@@ -35,8 +35,8 @@ public final class SceneContext {
         return _nfactory;
     }
 
-    public Node getNode(final String name) {
-        return (Node) _objects.get(name);
+    public <T extends Node> T getNode(final String name) {
+        return (T) _objects.get(name);
     }
 
     public Spatial getSpatial(final String name) {
