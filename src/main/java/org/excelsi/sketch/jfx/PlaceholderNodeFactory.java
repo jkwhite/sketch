@@ -11,7 +11,10 @@ import com.jme3.asset.AssetManager;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.Vector3f;
+import com.jme3.math.ColorRGBA;
+import com.jme3.light.PointLight;
 import org.excelsi.matrix.Typed;
+import org.excelsi.aether.Patsy;
 
 
 public class PlaceholderNodeFactory implements NodeFactory {
@@ -33,6 +36,12 @@ public class PlaceholderNodeFactory implements NodeFactory {
         g.setText(name+": "+s.toString());
         g.setSize(0.1f);
         g.setName(name);
-        return g;
+        final Node p = new Node(name);
+        p.attachChild(g);
+        final PointLight light = new PointLight();
+        light.setColor(ColorRGBA.Red);
+        light.setRadius(10f);
+        p.addLight(light);
+        return p;
     }
 }

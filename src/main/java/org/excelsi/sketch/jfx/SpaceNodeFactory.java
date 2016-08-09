@@ -8,6 +8,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.scene.shape.Box;
 import com.jme3.asset.AssetManager;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.export.binary.BinaryImporter;
 import org.slf4j.LoggerFactory;
@@ -35,9 +36,15 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
             //System.err.println("**** LOADED: "+o);
             final Spatial n = assets().loadModel("/ampersand_6_0.blend");
             //final Spatial n = assets().loadModel("/box1.blend");
-            //n.setLocalScale(0.5f);
+            n.setLocalScale(2.0f);
             LOG.debug("loaded spatial "+n);
-            Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
+            //Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
+            Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
+            mat.setFloat("Shininess", 32f);
+            mat.setBoolean("UseMaterialColors", true);
+            mat.setColor("Ambient",  ColorRGBA.Black);
+            mat.setColor("Diffuse",  ColorRGBA.White);
+            mat.setColor("Specular", ColorRGBA.White);
             n.setMaterial(mat);
             return n;
         }
