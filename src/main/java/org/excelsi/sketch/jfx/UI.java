@@ -13,6 +13,7 @@ public class UI {
         final Map<String,NodeFactory> nfs = new HashMap<>();
         nfs.put("level", new LevelNodeFactory());
         nfs.put("space", new SpaceNodeFactory(assets));
+        nfs.put("bot", new BotNodeFactory(assets));
         return new CompositeNodeFactory(nfs, new PlaceholderNodeFactory(assets));
     }
 }

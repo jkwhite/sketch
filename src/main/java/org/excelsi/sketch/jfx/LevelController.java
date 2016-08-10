@@ -8,6 +8,7 @@ import org.excelsi.sketch.ChangeEvent;
 import org.excelsi.aether.NHSpace;
 
 import com.jme3.scene.Node;
+import com.jme3.scene.LightNode;
 import com.jme3.scene.Spatial;
 
 
@@ -52,13 +53,16 @@ public class LevelController implements Controller<Stage> {
             n.attachChild(bot);
             c.addNode(bot);
             if(((NHSpace)mms).getOccupant().isPlayer()) {
-                attachPatsy(c, bot);
+                attachPatsy(n, c, bot);
             }
         }
         return ms;
     }
 
-    private void attachPatsy(final SceneContext c, final Spatial patsy) {
+    private void attachPatsy(final Node parent, final SceneContext c, final Spatial patsy) {
         c.<CloseView>getNode(View.NODE_CAMERA).setPlayer(patsy);
+        if(patsy instanceof LightNode) {
+            parent.addLight(((LightNode)patsy).getLight());;
+        }
     }
 }
