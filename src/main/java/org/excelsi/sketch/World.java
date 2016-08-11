@@ -19,6 +19,10 @@ public class World implements State {
         _bulk = new Bulk();
     }
 
+    @Override public String getName() {
+        return "world";
+    }
+
     @Override public void run(final Context c) {
         c.n().title("The Lower Reaches");
         _player = new Patsy();

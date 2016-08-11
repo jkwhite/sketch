@@ -26,12 +26,12 @@ public class JfxState extends HudNode {
                     final Region doomed = (Region) getChildren().get(0);
                     transition(doomed, (e)->{ getChildren().remove(doomed); });
                 }
-                final String urlName = String.format("/org/excelsi/sketch/state-%s.fxml", se.getNewValue().getClass().getSimpleName().toLowerCase());
+                final String urlName = String.format("/org/excelsi/sketch/state-%s.fxml", se.getNewValue().getName());
                 final URL url = getClass().getResource(urlName);
                 if(url!=null) {
                     try {
                         final Node stateRoot = _loader.load(url, Resources.jfxResources());
-                        getChildren().add(stateRoot);
+                        getChildren().add(0, stateRoot);
                     }
                     catch(Exception e) {
                         e.printStackTrace();

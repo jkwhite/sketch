@@ -2,6 +2,10 @@ package org.excelsi.sketch;
 
 
 public class Quit implements State {
+    @Override public String getName() {
+        return "quit";
+    }
+
     @Override public void run(final Context c) {
         c.n().title("Dusk");
         c.n().message("Be seeing you.");

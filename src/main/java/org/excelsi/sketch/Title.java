@@ -2,6 +2,10 @@ package org.excelsi.sketch;
 
 
 public class Title implements State {
+    @Override public String getName() {
+        return "title";
+    }
+
     @Override public void run(final Context c) {
         c.n().title("");
         final Runnable r = c.n().choose(new SelectionMenu<Runnable>(

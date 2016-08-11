@@ -9,6 +9,10 @@ public class Prelude implements State {
         _text = text;
     }
 
+    @Override public String getName() {
+        return "prelude";
+    }
+
     @Override public void run(final Context c) {
         c.n().poster(_text);
         c.n().pause();

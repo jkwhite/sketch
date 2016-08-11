@@ -61,6 +61,8 @@ import org.excelsi.sketch.Historian;
 import org.excelsi.sketch.Context;
 import org.excelsi.sketch.NullState;
 import org.excelsi.sketch.Title;
+import org.excelsi.sketch.Script;
+import org.excelsi.sketch.ScriptedState;
 import org.excelsi.sketch.BlockingNarrative;
 import org.excelsi.sketch.Logic;
 import org.excelsi.sketch.KeyEvent;
@@ -190,7 +192,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
                     new BlockingNarrative(EventBus.instance()),
                     new BusInputSource()
                 )
-                .state(new Title())
+                .state(new ScriptedState("dawn", new Script(getClass().getClassLoader().getResource("dawn.groovy"))))
             )
         );
         logic.start();
