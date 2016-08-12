@@ -149,36 +149,7 @@ glyphs = [
     uarch('0', '0')
 ]
 
-#scn = bpy.context.scene
-#bpy.ops.font.open(filepath="/Library/Fonts/Courier New.ttf")
-
 for c in test_glyphs:
     for dmg in c.damages():
         for res in [6]:
-        #for res in [6, 4, 3, 2, 1, 0]:
-            #for ob in scn.objects:
-                # Delete all old objects, so we start with a clean slate.
-                #scn.objects.active = ob
-                #print("Delete", ob, bpy.context.object)
-                #bpy.ops.object.mode_set(mode='OBJECT')
-                #scn.objects.unlink(ob)
-                #del ob
-            #bpy.ops.scene.delete
-            #bpy.ops.scene.new
-            # /Library/Fonts/Courier\ New.ttf
-            #file = c.filename+'_'+str(res)+'_'+str(dmg)+'.blend'
-            #print('generating '+c.symbol+' ...')
-            #bpy.ops.object.text_add(location=(0,0,0))
-            #txt = bpy.context.object
-            #curve = txt.data
-            #curve.body = c.symbol
-            #curve.font = bpy.data.fonts['CourierNewPSMT']
-            #curve.size = 1.5
-            #curve.extrude = 0.05
-            #curve.bevel_depth = 0.02
-            #bpy.ops.object.convert(target='MESH')
-            #bpy.ops.wm.save_as_mainfile(filepath=file, check_existing=False, compress=True)
-            call(["./generate_glyph.py", "-c", c.symbol, "-e", "0.05", "-b", "0.02", "-f", c.filename, "-r", "6", "-d", "0"])
-
-#bpy.ops.wm.save_as_mainfile(filepath="/tmp/tempfile.blend")
-#bpy.ops.wm.quit_blender()
+            call(["./generate_glyph.py", "-c", c.symbol, "-e", "0.04", "-b", "0.02", "-B", "3", "-f", c.filename, "-r", res, "-d", dmg])

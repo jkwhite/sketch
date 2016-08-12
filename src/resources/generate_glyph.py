@@ -14,7 +14,7 @@ from os import path
 
 def main(argv):
   try:
-    opts, args = getopt.getopt(argv,"P:c:e:f:b:r:d:",[])
+    opts, args = getopt.getopt(argv,"P:c:e:f:B:b:r:d:",[])
   except getopt.GetoptError as a:
     print('generate_glyph.py -c glyph -e extrude -f filename -b bevel -r res -d dmg', a)
     sys.exit(2)
@@ -28,6 +28,8 @@ def main(argv):
       extrude = arg
     elif opt in ("-b"):
       bevel = arg
+    elif opt in ("-B"):
+      bevel_resolution = arg
     elif opt in ("-r"):
       res = arg
     elif opt in ("-d"):
@@ -55,6 +57,7 @@ def main(argv):
   curve.size = 1.5
   curve.extrude = float(extrude)
   curve.bevel_depth = float(bevel)
+  curve.bevel_resolution = float(bevel_resolution)
   bpy.ops.object.convert(target='MESH')
   bpy.ops.wm.save_as_mainfile(filepath=file, check_existing=False, compress=True)
 

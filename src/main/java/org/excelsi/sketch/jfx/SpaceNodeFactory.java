@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import org.excelsi.aether.NHSpace;
+import org.excelsi.aether.Rand;
 import java.io.File;
 
 
@@ -27,26 +28,32 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
     }
 
     @Override public Spatial createNode(final String name, final NHSpace s) {
-        //return new Node(name);
-        //BinaryImporter b = new BinaryImporter();
-        //final String file = "/Users/jkw/code/tower/models/courier/src/resources/models/courier/hash_0_0.jme";
-
         try {
-            //Object o = b.load(new File(file));
-            //System.err.println("**** LOADED: "+o);
             final Spatial n = assets().loadModel("/ampersand_6_0.blend");
-            //final Spatial n = assets().loadModel("/box1.blend");
-            n.setLocalScale(2.0f);
-            LOG.debug("loaded spatial "+n);
-            //Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
-            Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
-            mat.setFloat("Shininess", 32f);
-            mat.setBoolean("UseMaterialColors", true);
-            mat.setColor("Ambient",  ColorRGBA.Black);
-            mat.setColor("Diffuse",  ColorRGBA.White);
-            mat.setColor("Specular", ColorRGBA.White);
-            n.setMaterial(mat);
-            return n;
+            if(true) {
+                final Node sp = new Node();
+                for(int i=0;i<8;i++) {
+                    final Spatial cl = n.clone();
+                    //cl.setLocalScale(0.5f);
+                    cl.setLocalTranslation(2f*Rand.om.nextFloat(), 0f, 2f*Rand.om.nextFloat());
+                    sp.attachChild(cl);
+                }
+                return sp;
+            }
+            else {
+                //final Spatial n = assets().loadModel("/box1.blend");
+                n.setLocalScale(2.0f);
+                LOG.debug("loaded spatial "+n);
+                //Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
+                Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
+                mat.setFloat("Shininess", 32f);
+                mat.setBoolean("UseMaterialColors", true);
+                mat.setColor("Ambient",  ColorRGBA.Black);
+                mat.setColor("Diffuse",  ColorRGBA.Gray);
+                mat.setColor("Specular", ColorRGBA.White);
+                n.setMaterial(mat);
+                return n;
+            }
         }
         catch(Exception e) {
             e.printStackTrace();

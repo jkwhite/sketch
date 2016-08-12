@@ -20,7 +20,7 @@ public class LevelNodeFactory implements NodeFactory<Stage> {
     @Override public Spatial createNode(final String name, final Stage s) {
         //return new Node(name);
         final DirectionalLight light = new DirectionalLight(new Vector3f(0, -1, 0));
-        light.setColor(ColorRGBA.Green);
+        light.setColor(ColorRGBA.White);
         //final Node n = new LightNode(name, light);
         final Node n = new Node(name);
         n.addLight(light);
