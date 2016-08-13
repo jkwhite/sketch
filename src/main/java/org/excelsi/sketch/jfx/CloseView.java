@@ -68,7 +68,7 @@ class CloseView extends CameraNode implements View {
         for(String a:System.getProperty("tower.views", "follow,follow-left,above,first-person").split("[ ,]")) {
             Angle angle = null;
             if("follow".equals(a)) {
-                angle = new Angle("follow", 5f, new float[]{0f, 1f}, new float[]{1f, (float)Math.PI, 0f}, 40f, new Vector3f(0f, 0f, -9f), false, false);
+                angle = new Angle("follow", 5f, new float[]{0f, 1f}, new float[]{1f, (float)Math.PI, 0f}, 40f, new Vector3f(0f, -2f, -9f), false, false);
             }
             else if("follow-left".equals(a)) {
                 angle = new Angle("follow-left", 5f, new float[]{-0.6f, 1f}, new float[]{1f, 7f*(float)Math.PI/8f, 0f}, 40f, new Vector3f(10f, 0f, -9f), false, false);

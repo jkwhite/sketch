@@ -24,7 +24,8 @@ public class BotController implements Controller<MSpace> {
             final MoveEvent me = (MoveEvent) e;
             final NHBot b = (NHBot) me.getBot();
             final Spatial s = c.getSpatial(me.getBot().getId());
-            Spaces.translate(me.getBot().getEnvironment().getSpace(), s);
+            //Spaces.translate(me.getBot().getEnvironment().getSpace(), s);
+            Animations.move(s, s.getLocalTranslation(), Spaces.translation(me.getBot().getEnvironment().getSpace()));
             if(b.isPlayer()) {
                 updateView(c, me.getBot().getEnvironment().getSpace());
             }

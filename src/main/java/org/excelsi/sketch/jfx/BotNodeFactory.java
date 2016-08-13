@@ -58,13 +58,14 @@ public class BotNodeFactory extends AssetNodeFactory<NHBot> {
             light.setColor(ColorRGBA.Red);
             light.setRadius(10f);
             final LightNode ln = new LightNode("light", new LightControl(light));
-            ln.setLocalTranslation(0f, 2f, 0f);
+            ln.setLocalTranslation(0f, 1f, 0f);
 
             //final Node p = new Node(name);
 
-            final Node parent = new Node(name);
+            final LittenNode parent = new LittenNode(name);
             parent.attachChild(ln);
             parent.attachChild(n);
+            parent.addChildLight(light);
 
             //p.addLight(light);
             return parent;

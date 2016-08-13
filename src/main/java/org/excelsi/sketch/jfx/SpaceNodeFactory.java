@@ -31,11 +31,18 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
         try {
             final Spatial n = assets().loadModel("/ampersand_6_0.blend");
             if(true) {
+                Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
+                mat.setFloat("Shininess", 32f);
+                mat.setBoolean("UseMaterialColors", true);
+                mat.setColor("Ambient",  ColorRGBA.Black);
+                mat.setColor("Diffuse",  ColorRGBA.Gray);
+                mat.setColor("Specular", ColorRGBA.White);
+                n.setMaterial(mat);
                 final Node sp = new Node();
-                for(int i=0;i<8;i++) {
+                for(int i=0;i<4;i++) {
                     final Spatial cl = n.clone();
                     //cl.setLocalScale(0.5f);
-                    cl.setLocalTranslation(2f*Rand.om.nextFloat(), 0f, 2f*Rand.om.nextFloat());
+                    cl.setLocalTranslation(UIConstants.HORIZ_RATIO*Rand.om.nextFloat(), 0f, UIConstants.VERT_RATIO*Rand.om.nextFloat());
                     sp.attachChild(cl);
                 }
                 return sp;
