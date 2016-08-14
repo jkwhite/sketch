@@ -149,7 +149,7 @@ glyphs = [
     uarch('0', '0')
 ]
 
-for c in test_glyphs:
+for c in glyphs:
     for dmg in c.damages():
         for res in [6]:
             call(["./generate_glyph.py", "-c", c.symbol, "-e", "0.04", "-b", "0.02", "-B", "3", "-f", c.filename, "-r", str(res), "-d", str(dmg)])

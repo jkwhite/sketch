@@ -22,6 +22,7 @@ package org.excelsi.aether;
 
 //import groovy.lang.*;
 import java.io.InputStream;
+import org.excelsi.sketch.Script;
 
 
 public class GroovyDataSource implements DataSource {
@@ -41,5 +42,6 @@ public class GroovyDataSource implements DataSource {
         return u;
         */
         throw new UnsupportedOperationException();
+        //final Script s = new Script("universe.groovy");
     }
 }

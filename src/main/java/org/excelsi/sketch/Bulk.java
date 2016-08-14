@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Bulk {
+public final class Bulk {
     private final Map<Integer,Stage> _levels = new HashMap<>();
 
 

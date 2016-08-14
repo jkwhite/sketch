@@ -1630,8 +1630,10 @@ public abstract class DefaultNHBot extends DefaultBot implements NHBot {
             return false;
         }
 
-        public void perform() {
-            throw new UnsupportedOperationException("no");
+        @Deprecated public void perform() {
+            //throw new UnsupportedOperationException("no");
+            System.err.println("deprecated perform()");
+            perform(Actor.context());
         }
 
         public void perform(final Context c) {

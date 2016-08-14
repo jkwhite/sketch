@@ -35,7 +35,8 @@ public class BotNodeFactory extends AssetNodeFactory<NHBot> {
 
     @Override public Spatial createNode(final String name, final NHBot s) {
         try {
-            final Spatial n = assets().loadModel("/atsign_6_0.blend");
+            final String model = String.format("/%s_%d_%d.blend", Spaces.format(s.getModel()), 6, 0);
+            final Spatial n = assets().loadModel(model);
             //final Spatial n = assets().loadModel("/box1.blend");
             n.setLocalScale(2.0f);
             n.setLocalRotation(new Quaternion(new float[]{FastMath.PI/2f, 0f, 0f}));

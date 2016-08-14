@@ -29,7 +29,8 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
 
     @Override public Spatial createNode(final String name, final NHSpace s) {
         try {
-            final Spatial n = assets().loadModel("/ampersand_6_0.blend");
+            final String model = String.format("/%s_%d_%d.blend", Spaces.format(s.getModel()), 6, 0);
+            final Spatial n = assets().loadModel(model);
             if(true) {
                 Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
                 mat.setFloat("Shininess", 32f);

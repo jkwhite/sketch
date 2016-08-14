@@ -67,6 +67,8 @@ import org.excelsi.sketch.BlockingNarrative;
 import org.excelsi.sketch.Logic;
 import org.excelsi.sketch.KeyEvent;
 import org.excelsi.sketch.BusInputSource;
+import org.excelsi.aether.Universe;
+import org.excelsi.sketch.Bulk;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.LoggerFactory;
@@ -190,6 +192,8 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             new Historian(
                 new Context(
                     new BlockingNarrative(EventBus.instance()),
+                    new Universe(),
+                    new Bulk(),
                     new BusInputSource()
                 )
                 .state(new ScriptedState("dawn", new Script(getClass().getClassLoader().getResource("dawn.groovy"))))

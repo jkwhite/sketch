@@ -450,11 +450,14 @@ fast:       for(int i=ro.getX1();i<ro.getX2();i++) {
                 acting.getEnvironment().unhide();
                 //break;
             }
+            System.err.println("ACTOR: "+acting);
             Actor.setCurrent(acting);
+            Actor.setContext(c);
             c.setActor(acting);
             acting.act(c);
             c.setActor(null);
             Actor.setCurrent(null);
+            Actor.setContext(null);
             if(first==null) {
                 first = acting;
             }

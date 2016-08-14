@@ -1,19 +1,24 @@
 package org.excelsi.sketch;
 
 
+import org.excelsi.aether.Universe;
 import org.excelsi.aether.InputSource;
 import org.excelsi.aether.NHBot;
 
 
 public final class Context {
     private final Narrative _n;
+    private final Universe _u;
+    private final Bulk _b;
     private State _state = new NullState();
     private InputSource _input;
     private NHBot _actor;
 
 
-    public Context(final Narrative n, final InputSource input) {
+    public Context(final Narrative n, final Universe u, final Bulk b, final InputSource input) {
         _n = n;
+        _u = u;
+        _b = b;
         _input = input;
     }
 
@@ -23,6 +28,14 @@ public final class Context {
 
     public Narrative getN() {
         return _n;
+    }
+
+    public Universe getUniverse() {
+        return _u;
+    }
+
+    public Bulk getBulk() {
+        return _b;
     }
 
     public State getState() {

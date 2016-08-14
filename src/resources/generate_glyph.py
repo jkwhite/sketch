@@ -42,7 +42,7 @@ def main(argv):
   scn = bpy.context.scene
   for ob in scn.objects:
     scn.objects.active = ob
-    print("Delete", ob, bpy.context.object)
+    #print("Delete", ob, bpy.context.object)
     bpy.ops.object.mode_set(mode='OBJECT')
     scn.objects.unlink(ob)
     del ob

@@ -19,5 +19,57 @@ public class Spaces {
         return s;
     }
 
+    public static String format(final String c) {
+        switch(c) {
+            case "@":
+                return "atsign";
+            case "-":
+                return "dash";
+            case "&":
+                return "ampersand";
+            case ":":
+                return "colon";
+            case "!":
+                return "bang";
+            case "=":
+                return "equals";
+            case ")":
+                return "rparen";
+            case "(":
+                return "lparen";
+            case "]":
+                return "rbrace";
+            case "[":
+                return "lbrace";
+            case "%":
+                return "percent";
+            case "?":
+                return "qmark";
+            case ",":
+                return "comma";
+            case "*":
+                return "asterisk";
+            case "$":
+                return "string";
+            case "/":
+                return "slash";
+            case "+":
+                return "plus";
+            case ".":
+                return "dot";
+            case "#":
+                return "hash";
+            case "|":
+                return "pipe";
+            default:
+                if(Character.isUpperCase(c.charAt(0))) {
+                    return "_"+c;
+                }
+                else {
+                    return c;
+                }
+        }
+    }
+
     private Spaces() {}
 }

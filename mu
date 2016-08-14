@@ -15,6 +15,7 @@ uses:
     - groovy-all-2.1.9.jar
     - jfx-2.dev.2016-04-30_075140-ccbd413.jar
     - lemur-1.8.2-SNAPSHOT.jar
+    - snakeyaml-1.7.jar
     #- jbullet.jar
     #- stack-alloc.jar
     - tonegod.gui.jar

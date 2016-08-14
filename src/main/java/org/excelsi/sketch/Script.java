@@ -13,6 +13,12 @@ public class Script {
     private final Binding _binding;
 
 
+    public Script(final String url) {
+        _script = getClass().getClassLoader().getResource(url);
+        _binding = new Binding();
+        _shell = new GroovyShell(_binding);
+    }
+
     public Script(final URL script) {
         _script = script;
         _binding = new Binding();

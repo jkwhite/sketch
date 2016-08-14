@@ -168,9 +168,15 @@ class CloseView extends CameraNode implements View {
             getNthChild(_player,3).detachChild(this);
             getNthChild(player,3).attachChild(this);
         }
+        boolean newPlayer = _player == null;
         _player = player;
         _position = _player.getLocalTranslation();
         center(_position);
+        if(newPlayer) {
+            approach(0.5f);
+            approach(0.5f);
+            approach(0.5f);
+        }
     }
 
     public void deactivate() {
@@ -179,6 +185,8 @@ class CloseView extends CameraNode implements View {
 
     @Override public void updateLogicalState(float dt) {
         if(_player!=null) {
+            approach(dt);
+            /*
             Vector3f pos = getLocalTranslation();
             if(_rotx!=_trotx||_roty!=_troty||_rotz!=_trotz) {
                 float rx = _rotx+(_trotx-_rotx)*dt;
@@ -195,8 +203,28 @@ class CloseView extends CameraNode implements View {
                 _move.normalizeLocal().multLocal(_speed);
             }
             pos.addLocal(_move);
+            */
         }
         super.updateLogicalState(dt);
+    }
+
+    private void approach(final float dt) {
+        Vector3f pos = getLocalTranslation();
+        if(_rotx!=_trotx||_roty!=_troty||_rotz!=_trotz) {
+            float rx = _rotx+(_trotx-_rotx)*dt;
+            float ry = _roty+(_troty-_roty)*dt;
+            float rz = _rotz+(_trotz-_rotz)*dt;
+            setLocalRotation(new Quaternion(new float[]{rx, ry, rz}));
+            _rotx = rx;
+            _roty = ry;
+            _rotz = rz;
+        }
+        _move.set(_target.x-pos.x, _target.y-pos.y, _target.z-pos.z);
+        _move.multLocal(1.5f*dt);
+        if(_move.length()>_speed) {
+            _move.normalizeLocal().multLocal(_speed);
+        }
+        pos.addLocal(_move);
     }
 
     private static final Vector3f ZERO = new Vector3f(0,0,0);
