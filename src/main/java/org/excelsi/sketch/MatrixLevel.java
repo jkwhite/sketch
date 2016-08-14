@@ -2,6 +2,7 @@ package org.excelsi.sketch;
 
 
 import org.excelsi.matrix.Matrix;
+import org.excelsi.matrix.Id;
 import org.excelsi.matrix.MSpaceListener;
 import org.excelsi.matrix.MatrixListener;
 import org.excelsi.matrix.MSpace;
@@ -10,7 +11,7 @@ import org.excelsi.matrix.Actor;
 import org.excelsi.aether.NHBot;
 
 
-public class MatrixLevel implements Level, MatrixListener, MSpaceListener {
+public class MatrixLevel extends Id implements Level, MatrixListener, MSpaceListener {
     private final String _name;
     private final int _ordinal;
     private final Matrix _m;

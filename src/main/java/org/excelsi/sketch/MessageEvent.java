@@ -15,11 +15,15 @@ public class MessageEvent extends Event {
         _m = m;
     }
 
+    @Override public String getType() {
+        return "message";
+    }
+
     public String getMessage() {
         return _m;
     }
 
-    public Type getType() {
+    public Type getMessageType() {
         return _t;
     }
 

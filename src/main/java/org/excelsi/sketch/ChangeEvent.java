@@ -14,7 +14,7 @@ public class ChangeEvent<E> extends Event {
         _new = newValue;
     }
 
-    public String getType() {
+    @Override public String getType() {
         return _type;
     }
 
@@ -27,6 +27,6 @@ public class ChangeEvent<E> extends Event {
     }
 
     @Override public String toString() {
-        return "change::"+_type+"::{from:"+_old+", to:"+_new+"}";
+        return getClass().getSimpleName().toLowerCase()+"::"+_type+"::{from:"+_old+", to:"+_new+"}";
     }
 }

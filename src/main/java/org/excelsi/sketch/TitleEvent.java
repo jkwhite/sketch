@@ -10,6 +10,10 @@ public class TitleEvent extends Event {
         _title = title;
     }
 
+    @Override public String getType() {
+        return "title";
+    }
+
     public String getTitle() {
         return _title;
     }

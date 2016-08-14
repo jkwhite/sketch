@@ -181,7 +181,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
                 EventBus.instance().consume(_jfxSubscription, JfxMain.this);
             }
         };
-        _jmeEvents = new JmeEventHandler(getCamera(), assetManager, new SimpleControllerFactory(), UI.nodeFactory(assetManager), rootNode);
+        _jmeEvents = new JmeEventHandler(getCamera(), assetManager, UI.controllerFactory(), UI.nodeFactory(assetManager), rootNode);
         EventBus.instance().subscribe(UIConstants.QUEUE_JME, UIConstants.QUEUE_JME);
         _jfxSubscription = EventBus.instance().subscribe("keys", UIConstants.QUEUE_JFX);
         _jmeSubscription = EventBus.instance().subscribe("changes", UIConstants.QUEUE_JME);

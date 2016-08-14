@@ -1,6 +1,14 @@
 package org.excelsi.sketch.jfx;
 
 
+import org.excelsi.sketch.Event;
+
+
+@FunctionalInterface
 public interface ControllerFactory {
-    Controller createController(String type);
+    public static ControllerFactory constant(final Controller c) {
+        return (e)->{return c;};
+    }
+
+    Controller createController(Event e);
 }

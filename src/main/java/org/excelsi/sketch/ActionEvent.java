@@ -10,6 +10,10 @@ public class ActionEvent extends Event {
         _a = a;
     }
 
+    public String getType() {
+        return "action";
+    }
+
     public Action action() {
         return _a;
     }

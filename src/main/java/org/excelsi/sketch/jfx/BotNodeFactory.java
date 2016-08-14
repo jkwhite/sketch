@@ -17,6 +17,7 @@ import com.jme3.light.PointLight;
 import org.excelsi.aether.Patsy;
 import com.jme3.scene.control.LightControl;
 import com.jme3.export.binary.BinaryImporter;
+import com.jme3.bounding.BoundingBox;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -33,17 +34,13 @@ public class BotNodeFactory extends AssetNodeFactory<NHBot> {
     }
 
     @Override public Spatial createNode(final String name, final NHBot s) {
-        //return new Node(name);
-        //BinaryImporter b = new BinaryImporter();
-        //final String file = "/Users/jkw/code/tower/models/courier/src/resources/models/courier/hash_0_0.jme";
-
         try {
-            //Object o = b.load(new File(file));
-            //System.err.println("**** LOADED: "+o);
             final Spatial n = assets().loadModel("/atsign_6_0.blend");
             //final Spatial n = assets().loadModel("/box1.blend");
             n.setLocalScale(2.0f);
-            n.setLocalRotation(new Quaternion(FastMath.PI/4f, 0f, 0f, 1f));
+            n.setLocalRotation(new Quaternion(new float[]{FastMath.PI/2f, 0f, 0f}));
+            final BoundingBox bb = (BoundingBox) n.getWorldBound();
+            n.getLocalTranslation().subtractLocal(n.getWorldBound().getCenter());
             LOG.debug("loaded spatial "+n);
             //Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
             Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
@@ -60,14 +57,11 @@ public class BotNodeFactory extends AssetNodeFactory<NHBot> {
             final LightNode ln = new LightNode("light", new LightControl(light));
             ln.setLocalTranslation(0f, 1f, 0f);
 
-            //final Node p = new Node(name);
-
             final LittenNode parent = new LittenNode(name);
             parent.attachChild(ln);
             parent.attachChild(n);
             parent.addChildLight(light);
 
-            //p.addLight(light);
             return parent;
         }
         catch(Exception e) {

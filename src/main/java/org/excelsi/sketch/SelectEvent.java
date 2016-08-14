@@ -10,6 +10,10 @@ public class SelectEvent<E> extends Event {
         _m = m;
     }
 
+    @Override public String getType() {
+        return "select";
+    }
+
     public Menu<E> getMenu() {
         return _m;
     }

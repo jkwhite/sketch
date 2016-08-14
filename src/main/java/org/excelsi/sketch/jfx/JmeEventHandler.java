@@ -55,7 +55,7 @@ public class JmeEventHandler implements EventBus.Handler {
     }
 
     private void change(final ChangeEvent e) {
-        Controller c = _cfactory.createController(e.getType());
+        Controller c = _cfactory.createController(e);
         c.changed(_ctx, e);
     }
 

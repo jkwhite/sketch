@@ -21,6 +21,7 @@ package org.excelsi.aether;
 
 
 import java.util.EnumSet;
+import org.excelsi.sketch.Context;
 
 
 /**
@@ -51,6 +52,13 @@ public class Inorganic extends DefaultNHBot {
      * Throws IllegalStateException.
      */
     public void act() {
+        throw new IllegalStateException("inorganics cannot act");
+    }
+
+    /**
+     * Throws IllegalStateException.
+     */
+    public void act(final Context c) {
         throw new IllegalStateException("inorganics cannot act");
     }
 

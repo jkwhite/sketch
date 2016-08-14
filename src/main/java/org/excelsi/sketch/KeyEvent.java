@@ -10,6 +10,10 @@ public class KeyEvent extends Event {
         _k = k;
     }
 
+    public String getType() {
+        return "key";
+    }
+
     public String key() {
         return _k;
     }

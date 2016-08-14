@@ -2,12 +2,13 @@ package org.excelsi.sketch;
 
 
 import org.excelsi.matrix.Matrix;
+import org.excelsi.matrix.Id;
 
 
-public class Skelevel implements Level {
+public class Skelevel extends Id implements Level {
     private LevelRecipe _recipe;
     private LevelGenerator _gen;
-    private Level _level;
+    private Stage _level;
 
 
     public Skelevel(final LevelGenerator gen, final LevelRecipe r) {
@@ -45,11 +46,11 @@ public class Skelevel implements Level {
         return _level!=null;
     }
 
-    public Level getLevel() {
+    public Stage getLevel() {
         return _level;
     }
 
-    public void setLevel(final Level level) {
+    public void setLevel(final Stage level) {
         _level = level;
     }
 }

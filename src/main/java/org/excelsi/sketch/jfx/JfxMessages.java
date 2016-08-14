@@ -31,10 +31,10 @@ public class JfxMessages extends HudNode {
                     t = bt;
                 }
                 t.getStyleClass().add("message");
-                t.getStyleClass().add(e.getType().toString());
+                t.getStyleClass().add(e.getMessageType().toString());
                 getChildren().add(t);
                 final SequentialTransition st = new SequentialTransition();
-                switch(e.getType()) {
+                switch(e.getMessageType()) {
                     case ephemeral:
                         final FadeTransition ein = new FadeTransition(Duration.millis(500), t);
                         ein.setFromValue(0.0);
@@ -49,7 +49,7 @@ public class JfxMessages extends HudNode {
                     default:
                         break;
                 }
-                switch(e.getType()) {
+                switch(e.getMessageType()) {
                     case ephemeral:
                         st.getChildren().add(new PauseTransition(Duration.millis(3000)));
                         final FadeTransition out = new FadeTransition(Duration.millis(1000), t);

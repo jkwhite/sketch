@@ -12,6 +12,10 @@ public class StateChangeEvent extends Event {
         _new = newValue;
     }
 
+    @Override public String getType() {
+        return "state";
+    }
+
     public State getOldValue() {
         return _old;
     }

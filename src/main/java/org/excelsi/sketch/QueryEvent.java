@@ -16,11 +16,15 @@ public class QueryEvent extends Event {
         _m = m;
     }
 
+    @Override public String getType() {
+        return "query";
+    }
+
     public String getMessage() {
         return _m;
     }
 
-    public Type getType() {
+    public Type getQueryType() {
         return _t;
     }
 
