@@ -22,6 +22,11 @@ public class KeyEvent extends Event {
         return key();
     }
 
+    @Override public boolean equals(Object o) {
+        return getClass()==o.getClass()
+            && _k.equals(((KeyEvent)o)._k);
+    }
+
     @Override public String toString() {
         return "key::{k:'"+_k+"'}";
     }

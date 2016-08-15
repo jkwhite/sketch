@@ -4,6 +4,7 @@ package org.excelsi.sketch.jfx;
 import java.util.function.Function;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.StatsAppState;
 import com.jme3.app.FlyCamAppState;
 import com.jme3.audio.AudioListenerState;
 import com.jme3.app.DebugKeysAppState;
@@ -92,7 +93,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
     }
 
     public JfxMain() {
-        super(new FlyCamAppState(), new AudioListenerState(), new DebugKeysAppState());
+        super(new FlyCamAppState(), new AudioListenerState(), new DebugKeysAppState(), new StatsAppState());
     }
 
     public void simpleInitApp() {
@@ -112,9 +113,16 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             public void onJoyButtonEvent(JoyButtonEvent e) {
             }
 
+            private long _lastRepeat;
             public void onKeyEvent(KeyInputEvent e) {
-                LOG.debug(System.nanoTime()+" "+String.format("key char %s for code %d, string %s", e.getKeyChar(), e.getKeyCode(), e.toString()));
-                //Thread.dumpStack();
+                if(e.isRepeating()) {
+                    long repeat = System.currentTimeMillis();
+                    if(_lastRepeat+500>repeat) {
+                        return;
+                    }
+                    _lastRepeat = repeat;
+                }
+                LOG.debug(System.nanoTime()+" "+String.format("key char %s for code %d, repeating %s, string %s", e.getKeyChar(), e.getKeyCode(), e.isRepeating(), e.toString()));
                 boolean meta = e.getKeyCode()==219;
                 if(e.isPressed() && !meta) {
                     final KeyEvent ke = new KeyEvent(this, e.getKeyChar()+"");

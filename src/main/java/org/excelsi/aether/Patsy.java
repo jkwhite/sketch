@@ -338,10 +338,10 @@ public class Patsy extends DefaultNHBot {
     }
 
     public void act(final Context c) {
-        //System.err.println("**************** PATSY AWAITING");
-        final GameAction a = _inputSource.nextAction();
-        a.perform(c);
-        //System.err.println("**************** PATSY DONE");
+        final GameAction a = _inputSource.nextAction(500);
+        if(a!=null) {
+            a.perform(c);
+        }
     }
 
     public String toString() {

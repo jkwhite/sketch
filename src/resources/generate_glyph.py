@@ -47,7 +47,7 @@ def main(argv):
     scn.objects.unlink(ob)
     del ob
   bpy.ops.font.open(filepath="/Library/Fonts/Courier New.ttf")
-  file = filename+'_'+str(res)+'_'+str(dmg)+'.blend'
+  file = filename+'_'+str(res)+'_'+str(dmg)
   print('generating '+file+' ...')
   bpy.ops.object.text_add(location=(0,0,0))
   txt = bpy.context.object
@@ -59,7 +59,9 @@ def main(argv):
   curve.bevel_depth = float(bevel)
   curve.bevel_resolution = float(bevel_resolution)
   bpy.ops.object.convert(target='MESH')
-  bpy.ops.wm.save_as_mainfile(filepath=file, check_existing=False, compress=True)
+  bpy.ops.mesh.uv_texture_add()
+  bpy.ops.wm.save_as_mainfile(filepath=file+'.blend', check_existing=False, compress=True)
+  bpy.ops.ogre.export(filepath=file+'.ogre.xml')
 
 
 if __name__ == "__main__":

@@ -15,14 +15,13 @@ public class BusInputSource implements InputSource {
     }
 
     @Override public GameAction nextAction() throws InputInterruptedException {
-        System.err.println("############ POLLING");
         ActionEvent e = (ActionEvent) EventBus.instance().poll(_sub);
-        System.err.println("############ FOUND: "+e);
-        return e.action();
+        return e!=null?e.action():null;
     }
 
     @Override public GameAction nextAction(long timeout) throws InputInterruptedException {
-        return nextAction();
+        ActionEvent e = (ActionEvent) EventBus.instance().poll(_sub, timeout);
+        return e!=null?e.action():null;
     }
 
     @Override public GameAction actionFor(String key) {

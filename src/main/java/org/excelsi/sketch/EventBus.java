@@ -15,11 +15,19 @@ public final class EventBus {
 
     private int _nextId;
     private final Map<String,List<String>> _topics = new HashMap<>();
-    private final Map<String,Queue<Event>> _queues = new HashMap<>();
+    private final Map<String,EQueue<Event>> _queues = new HashMap<>();
 
 
     public static EventBus instance() {
         return _b;
+    }
+
+    public void control(final String queue, final boolean dedupe) {
+        final EQueue<Event> q = _queues.get(queue);
+        if(q==null) {
+            _queues.put(queue, new EQueue<>(1000));
+        }
+        q.setDedupe(dedupe);
     }
 
     public String subscribe(final String topic, final String consumer) {
@@ -33,7 +41,7 @@ public final class EventBus {
         //_queues.put(subscription, new ArrayBlockingQueue<>(1000));
         subs.add(consumer);
         if(!_queues.containsKey(consumer)) {
-            _queues.put(consumer, new ArrayBlockingQueue<>(1000));
+            _queues.put(consumer, new EQueue<>(1000));
         }
         //return subscription;
         return consumer;
@@ -91,6 +99,20 @@ public final class EventBus {
         }
     }
 
+    public Event poll(final String subscription, final long timeout) {
+        final Queue<Event> q = _queues.get(subscription);
+        if(q.isEmpty()) {
+            synchronized(q) {
+                try {
+                    q.wait(timeout);
+                }
+                catch(InterruptedException e) {
+                }
+            }
+        }
+        return !q.isEmpty() ? q.remove() : null;
+    }
+
     public void consume(final String subscription, Handler h) {
         final Queue<Event> q = _queues.get(subscription);
         while(!q.isEmpty()) {
@@ -103,5 +125,49 @@ public final class EventBus {
     }
 
     private EventBus() {
+    }
+
+    private static class EQueue<E> extends ArrayBlockingQueue<E> {
+        private boolean _dedupe;
+        private E _lastAdded;
+
+
+        public EQueue(int size) {
+            this(size, false);
+        }
+
+        public EQueue(int size, boolean dedupe) {
+            super(size);
+            _dedupe = dedupe;
+        }
+
+        @Override public boolean add(E e) {
+            if(_dedupe) {
+                if(isEmpty()) {
+                    _lastAdded = e;
+                    return super.add(e);
+                }
+                else {
+                    if(_lastAdded.equals(e)) {
+                        return false;
+                    }
+                    else {
+                        _lastAdded = e;
+                        return super.add(e);
+                    }
+                }
+            }
+            else {
+                return super.add(e);
+            }
+        }
+
+        public void setDedupe(boolean dedupe) {
+            _dedupe = dedupe;
+        }
+
+        public boolean getDedupe() {
+            return _dedupe;
+        }
     }
 }

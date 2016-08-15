@@ -1,6 +1,7 @@
 package org.excelsi.sketch.jfx;
 
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -12,6 +13,10 @@ import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 import javafx.scene.layout.BorderPane;
+
+import com.jme3.scene.Spatial;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.SceneGraphVisitor;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -47,6 +52,7 @@ public class JfxWorld extends HudNode {
 
         _actions.put(new Keymap("="), new ZoomInAction());
         _actions.put(new Keymap("-"), new ZoomOutAction());
+        _actions.put(new Keymap("0"), new SceneDumpAction());
         LOG.debug("actionmap: "+_actions);
         addLogicHandler((le)->{
             if(le.e() instanceof KeyEvent) {
@@ -96,6 +102,29 @@ public class JfxWorld extends HudNode {
         @Override public void perform(final SceneContext c) {
             final View v = (View) c.getNode(View.NODE_CAMERA);
             v.zoomOut();
+        }
+    }
+
+    private static class SceneDumpAction extends UIAction {
+        @Override public void perform() {
+        }
+
+        @Override public void perform(final Context c) {
+        }
+
+        @Override public void perform(final SceneContext c) {
+            final int[] lodCounts = new int[11];
+            c.getRoot().breadthFirstTraversal(new SceneGraphVisitor() {
+                @Override public void visit(final Spatial child) {
+                    //System.err.println("child: "+child+", class: "+child.getClass());
+                    if(child instanceof Geometry) {
+                        final Geometry g = (Geometry) child;
+                        System.err.println(g+", lod: "+g.getLodLevel()+" / "+g.getMesh().getNumLodLevels());
+                        lodCounts[g.getLodLevel()]++;
+                    }
+                }
+            });
+            System.err.println("lod counts: "+Arrays.toString(lodCounts));
         }
     }
 

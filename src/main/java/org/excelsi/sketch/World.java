@@ -43,9 +43,12 @@ public class World implements State {
         while(c.getState()==this) {
             try {
                 _level.tick(c);
-                //c.n().pause();
+                //Thread.sleep(250);
             }
             catch(ActionCancelledException e) {
+            }
+            catch(Exception e) {
+                e.printStackTrace();
             }
         }
     }
