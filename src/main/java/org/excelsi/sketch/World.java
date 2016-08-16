@@ -54,7 +54,7 @@ public class World implements State {
     }
 
     public void setLevel(final Stage level) {
-        level.getMatrix().getSpace(0,0).setOccupant(_player);
+        level.getMatrix().getSpace(level.getMatrix().width()/2,level.getMatrix().height()/2).setOccupant(_player);
         final Stage old = _level;
         _level = level;
         EventBus.instance().post("changes", new ChangeEvent<Stage>(this, "level", old, _level));
