@@ -78,7 +78,9 @@ $c.bulk.addLevel(
         .height(24)
         .random(Rand.om))
 )
-$c.bulk.findLevel(1).findRandomNormalEmptySpace().occupant = $c.universe.createBot('construction worker')
+for(i=0;i<20;i++) {
+    $c.bulk.findLevel(1).findRandomNormalEmptySpace().occupant = $c.universe.createBot('construction worker')
+}
 
 
 /*
