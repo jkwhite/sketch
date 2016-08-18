@@ -2,6 +2,10 @@ package org.excelsi.sketch;
 
 
 import org.excelsi.aether.EverythingAdapter;
+import org.excelsi.aether.Container;
+import org.excelsi.aether.Item;
+import org.excelsi.aether.NHBot;
+import org.excelsi.aether.NHSpace;
 import org.excelsi.matrix.Bot;
 import org.excelsi.matrix.Direction;
 import org.excelsi.matrix.MSpace;
@@ -21,6 +25,13 @@ public class EventBusRelayer extends EverythingAdapter {
 
     @Override public void faced(Bot b, Direction old, Direction d) {
         post(TOPIC_CHANGES, new OrientEvent(b.getEnvironment().getSpace(), b, old, d));
+    }
+
+    @Override public void itemAdded(Container space, Item item, int idx, boolean incremented) {
+        post(TOPIC_CHANGES, new ContainerEvent(space, item, idx, incremented);
+    }
+
+    @Override public void itemAdded(Container space, Item item, int idx, boolean incremented, NHBot adder, NHSpace origin) {
     }
 
     private static void post(final String topic, final Event e) {

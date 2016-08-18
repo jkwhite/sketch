@@ -1,4 +1,5 @@
 import org.excelsi.aether.*
+import org.excelsi.tower.*
 import org.excelsi.sketch.*
 
 
@@ -81,6 +82,7 @@ $c.bulk.addLevel(
 for(i=0;i<20;i++) {
     $c.bulk.findLevel(1).findRandomNormalEmptySpace().occupant = $c.universe.createBot('construction worker')
 }
+$c.bulk.findLevel(1).findRandomNormalEmptySpace().add(new Apple())
 
 
 /*
