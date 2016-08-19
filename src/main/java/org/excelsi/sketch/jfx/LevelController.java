@@ -2,9 +2,11 @@ package org.excelsi.sketch.jfx;
 
 
 import org.excelsi.matrix.MSpace;
+import org.excelsi.aether.NHBot;
 import org.excelsi.matrix.MatrixMSpace;
 import org.excelsi.sketch.Stage;
 import org.excelsi.sketch.ChangeEvent;
+import org.excelsi.sketch.AddEvent;
 import org.excelsi.aether.NHSpace;
 
 import com.jme3.scene.Node;
@@ -17,7 +19,7 @@ public class LevelController implements Controller<Stage> {
     private static final String PREFIX = "level-";
 
 
-    @Override public void added(final SceneContext c, final Stage l) {
+    @Override public void added(final SceneContext c, final AddEvent<Stage> l) {
     }
 
     @Override public void removed(final SceneContext c, final Stage l) {
@@ -48,12 +50,13 @@ public class LevelController implements Controller<Stage> {
         final Spatial ms = c.getNodeFactory().createNode("x", mms);
         Spaces.translate(mms, ms);
         lev.attachChild(ms);
-        if(mms.getOccupant()!=null) {
-            final Spatial bot = c.getNodeFactory().createNode(mms.getOccupant().getId(), mms.getOccupant());
+        final NHBot b = (NHBot) mms.getOccupant();
+        if(b!=null) {
+            final Spatial bot = c.getNodeFactory().createNode(b.getId(), mms.getOccupant());
             Spaces.translate(mms, bot);
             lev.attachChild(bot);
             c.addNode(bot);
-            if(((NHSpace)mms).getOccupant().isPlayer()) {
+            if(b.isPlayer()) {
                 attachPatsy(lev, c, bot);
             }
         }

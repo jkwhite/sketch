@@ -9,6 +9,7 @@ import org.excelsi.sketch.EventBus;
 import org.excelsi.sketch.ChangeEvent;
 import org.excelsi.sketch.ActionEvent;
 import org.excelsi.sketch.Level;
+import org.excelsi.sketch.AddEvent;
 
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
@@ -49,6 +50,9 @@ public class JmeEventHandler implements EventBus.Handler {
         if(e instanceof ChangeEvent) {
             change((ChangeEvent)e);
         }
+        else if(e instanceof AddEvent) {
+            add((AddEvent)e);
+        }
         else if(e instanceof ActionEvent) {
             uiAction((ActionEvent)e);
         }
@@ -57,6 +61,11 @@ public class JmeEventHandler implements EventBus.Handler {
     private void change(final ChangeEvent e) {
         Controller c = _cfactory.createController(e);
         c.changed(_ctx, e);
+    }
+
+    private void add(final AddEvent e) {
+        Controller c = _cfactory.createController(e);
+        c.added(_ctx, e);
     }
 
     private void uiAction(final ActionEvent e) {

@@ -28,7 +28,7 @@ public class EventBusRelayer extends EverythingAdapter {
     }
 
     @Override public void itemAdded(Container space, Item item, int idx, boolean incremented) {
-        post(TOPIC_CHANGES, new ContainerEvent(space, item, idx, incremented);
+        post(TOPIC_CHANGES, new ContainerAddEvent((NHSpace)space, item, idx, incremented));
     }
 
     @Override public void itemAdded(Container space, Item item, int idx, boolean incremented, NHBot adder, NHSpace origin) {

@@ -83,6 +83,7 @@ for(i=0;i<20;i++) {
     $c.bulk.findLevel(1).findRandomNormalEmptySpace().occupant = $c.universe.createBot('construction worker')
 }
 $c.bulk.findLevel(1).findRandomNormalEmptySpace().add(new Apple())
+$c.bulk.findLevel(1).getMatrix().getSpace(0,0).add(new Apple())
 
 
 /*

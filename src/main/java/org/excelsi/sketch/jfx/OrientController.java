@@ -6,6 +6,7 @@ import org.excelsi.matrix.MatrixMSpace;
 import org.excelsi.aether.NHBot;
 import org.excelsi.sketch.ChangeEvent;
 import org.excelsi.sketch.OrientEvent;
+import org.excelsi.sketch.AddEvent;
 import org.excelsi.matrix.Direction;
 
 import com.jme3.math.Vector3f;
@@ -15,7 +16,7 @@ import com.jme3.scene.Spatial;
 
 
 public class OrientController implements Controller<Direction> {
-    @Override public void added(final SceneContext c, final Direction b) {
+    @Override public void added(final SceneContext c, final AddEvent<Direction> b) {
     }
 
     @Override public void removed(final SceneContext c, final Direction b) {

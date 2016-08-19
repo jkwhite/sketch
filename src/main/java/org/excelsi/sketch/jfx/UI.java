@@ -28,7 +28,9 @@ public class UI {
                         MoveEvent.class, constant(new BotController()),
                         OrientEvent.class, constant(new OrientController()))
                 ),
-                "level", constant(new LevelController()))
-            );
+                "level", constant(new LevelController()),
+                "item", constant(new ItemController())
+            )
+        );
     }
 }

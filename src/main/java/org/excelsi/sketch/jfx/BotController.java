@@ -6,6 +6,7 @@ import org.excelsi.matrix.MatrixMSpace;
 import org.excelsi.aether.NHBot;
 import org.excelsi.sketch.ChangeEvent;
 import org.excelsi.sketch.MoveEvent;
+import org.excelsi.sketch.AddEvent;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
@@ -13,7 +14,7 @@ import com.jme3.scene.Spatial;
 
 
 public class BotController implements Controller<MSpace> {
-    @Override public void added(final SceneContext c, final MSpace b) {
+    @Override public void added(final SceneContext c, final AddEvent<MSpace> b) {
     }
 
     @Override public void removed(final SceneContext c, final MSpace b) {
