@@ -114,6 +114,10 @@ public abstract class Item extends Id implements java.io.Serializable, Material,
         setName(iname.toString());
     }
 
+    @Override public String getObjectType() {
+        return "item";
+    }
+
     public String getName() {
         return _name;
         //return isIdentified()?_status+" "+_name:_name;

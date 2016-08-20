@@ -8,6 +8,7 @@ import org.excelsi.sketch.Stage;
 import org.excelsi.sketch.ChangeEvent;
 import org.excelsi.sketch.AddEvent;
 import org.excelsi.aether.NHSpace;
+import org.excelsi.aether.Item;
 
 import com.jme3.scene.Node;
 import com.jme3.scene.LightNode;
@@ -47,6 +48,7 @@ public class LevelController implements Controller<Stage> {
     }
 
     private Spatial createSpace(final SceneContext c, final Node lev, final MatrixMSpace mms) {
+        final NHSpace space = (NHSpace) mms;
         final Spatial ms = c.getNodeFactory().createNode("x", mms);
         Spaces.translate(mms, ms);
         lev.attachChild(ms);
@@ -58,6 +60,12 @@ public class LevelController implements Controller<Stage> {
             c.addNode(bot);
             if(b.isPlayer()) {
                 attachPatsy(lev, c, bot);
+            }
+        }
+        final Item[] items = space.getItem();
+        if(items!=null) {
+            for(Item it:items) {
+                Spaces.attachItem(ms, Spaces.createItem(c, it));
             }
         }
         return ms;
