@@ -60,8 +60,8 @@ def main(argv):
   curve.bevel_resolution = float(bevel_resolution)
   bpy.ops.object.convert(target='MESH')
   bpy.ops.mesh.uv_texture_add()
-  bpy.ops.wm.save_as_mainfile(filepath=file+'.blend', check_existing=False, compress=True)
-  bpy.ops.ogre.export(filepath=file+'.ogre.xml')
+  #bpy.ops.wm.save_as_mainfile(filepath=file+'.blend', check_existing=False, compress=True)
+  bpy.ops.ogre.export(EX_SCENE=False, EX_lodLevels=0, filepath=file+'.ogre.xml')
 
 
 if __name__ == "__main__":

@@ -49,7 +49,7 @@ public class LevelController implements Controller<Stage> {
 
     private Spatial createSpace(final SceneContext c, final Node lev, final MatrixMSpace mms) {
         final NHSpace space = (NHSpace) mms;
-        final Spatial ms = c.getNodeFactory().createNode("x", mms);
+        final SpaceNode ms = (SpaceNode) c.getNodeFactory().createNode(mms.getId(), mms);
         Spaces.translate(mms, ms);
         lev.attachChild(ms);
         final NHBot b = (NHBot) mms.getOccupant();
@@ -65,7 +65,8 @@ public class LevelController implements Controller<Stage> {
         final Item[] items = space.getItem();
         if(items!=null) {
             for(Item it:items) {
-                Spaces.attachItem(ms, Spaces.createItem(c, it));
+                //Spaces.attachItem(ms, Spaces.createItem(c, it));
+                ms.attachItem(c, it);
             }
         }
         return ms;

@@ -35,22 +35,11 @@ public class BotNodeFactory extends AssetNodeFactory<NHBot> {
 
     @Override public Spatial createNode(final String name, final NHBot s) {
         try {
-            final String model = String.format("/%s_%d_%d.blend", Spaces.format(s.getModel()), 6, 0);
-            final Spatial n = assets().loadModel(model);
-            //final Spatial n = assets().loadModel("/box1.blend");
-            n.setLocalScale(2.0f);
+            final Spatial n = loadModel(s.getModel(), s.getColor(), Display.single);
             n.setLocalRotation(new Quaternion(new float[]{FastMath.PI/2f, 0f, 0f}));
-            final BoundingBox bb = (BoundingBox) n.getWorldBound();
-            n.getLocalTranslation().subtractLocal(n.getWorldBound().getCenter());
-            LOG.debug("loaded spatial "+n);
-            //Material mat = new Material(assets(), "Common/MatDefs/Misc/Unshaded.j3md");
-            Material mat = new Material(assets(), "Common/MatDefs/Light/Lighting.j3md");
-            mat.setFloat("Shininess", 32f);
-            mat.setBoolean("UseMaterialColors", true);
-            mat.setColor("Ambient",  ColorRGBA.Black);
-            mat.setColor("Diffuse",  ColorRGBA.White);
-            mat.setColor("Specular", ColorRGBA.White);
-            n.setMaterial(mat);
+            n.setLocalScale(2.0f);
+            // duplicate center after scale/rot
+            Nodes.center(n);
 
             final PointLight light = new PointLight();
             light.setColor(ColorRGBA.Red);

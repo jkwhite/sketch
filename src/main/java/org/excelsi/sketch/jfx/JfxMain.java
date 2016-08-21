@@ -117,7 +117,7 @@ public class JfxMain extends SimpleApplication implements EventBus.Handler {
             public void onKeyEvent(KeyInputEvent e) {
                 if(e.isRepeating()) {
                     long repeat = System.currentTimeMillis();
-                    if(_lastRepeat+500>repeat) {
+                    if(_lastRepeat+300>repeat) {
                         return;
                     }
                     _lastRepeat = repeat;

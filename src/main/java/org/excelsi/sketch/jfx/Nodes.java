@@ -12,5 +12,10 @@ public class Nodes {
         }
     }
 
+    public static Spatial center(final Spatial s) {
+        s.getLocalTranslation().subtractLocal(s.getWorldBound().getCenter());
+        return s;
+    }
+
     private Nodes() {}
 }

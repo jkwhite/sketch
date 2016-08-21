@@ -34,11 +34,16 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
     @Override public Spatial createNode(final String name, final NHSpace s) {
         try {
             //final String model = String.format("/%s_%d_%d.blend", Spaces.format(s.getModel()), 6, 0);
-            //final String model = "/groundtest3.blend";
-            final String model = "/Mesh2.mesh.xml";
+            //final String model = "/Mesh2.mesh.xml";
+            final Spatial n = loadModel(s.getModel(), "gray", Display.scatter);
+            n.setLocalScale(2.0f);
+            Nodes.center(n);
+            final SpaceNode sp = new SpaceNode(s);
+            sp.attachChild(n);
+            return sp;
+            /*
+            final String model = String.format("/%s.lod.mesh.xml", Spaces.format(s.getModel()));
             final Spatial n = assets().loadModel(model);
-            //System.err.println("CLASSSSSSSSS: "+n.getClass());
-            //System.err.println("CHILDREN: "+((Node)n).getChildren());
             n.breadthFirstTraversal(new SceneGraphVisitor() {
                 @Override public void visit(final Spatial child) {
                     //System.err.println("child: "+child+", class: "+child.getClass());
@@ -55,7 +60,7 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
             if(true) {
                 Material mat = assets().loadMaterial("/m_gray.j3m");
                 n.setMaterial(mat);
-                final Node sp = new Node();
+                final SpaceNode sp = new SpaceNode(s);
                 for(int i=0;i<4;i++) {
                     final Spatial cl = n.clone();
                     cl.setLocalScale(0.5f);
@@ -78,6 +83,7 @@ public class SpaceNodeFactory extends AssetNodeFactory<NHSpace> {
                 n.setMaterial(mat);
                 return n;
             }
+            */
         }
         catch(Exception e) {
             e.printStackTrace();

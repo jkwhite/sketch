@@ -17,12 +17,13 @@ import com.jme3.scene.Spatial;
 public class ItemController implements Controller<Item> {
     @Override public void added(final SceneContext c, final AddEvent<Item> e) {
         //final Spatial item = c.getNodeFactory().createNode(e.getAdded().getId(), e.getAdded());
-        final Spatial item = Spaces.createItem(c, e.getAdded());
+        //final Spatial item = Spaces.createItem(c, e.getAdded());
         final NHSpace mms = (NHSpace) e.getSource();
         //Spaces.translate(mms, item);
-        final Node sp = c.getNode(mms.getId());
+        final SpaceNode sp = (SpaceNode) c.getNode(mms.getId());
         //sp.attachChild(item);
-        Spaces.attachItem(sp, item);
+        //Spaces.attachItem(sp, item);
+        sp.attachItem(c, e.getAdded());
     }
 
     @Override public void removed(final SceneContext c, final Item l) {

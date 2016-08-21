@@ -27,9 +27,11 @@ public class OrientController implements Controller<Direction> {
             final OrientEvent me = (OrientEvent) e;
             final NHBot b = (NHBot) me.getBot();
             final Spatial s = c.getSpatial(me.getBot().getId());
-            System.err.println("************** "+e);
-            final int rot = rotFor(e.getTo());
-            s.setLocalRotation(new Quaternion(new float[]{0f, UIConstants.ROTATIONS[rot], 0f}));
+            if(s!=null) {
+                System.err.println("************** "+e);
+                final int rot = rotFor(e.getTo());
+                s.setLocalRotation(new Quaternion(new float[]{0f, UIConstants.ROTATIONS[rot], 0f}));
+            }
         }
     }
 

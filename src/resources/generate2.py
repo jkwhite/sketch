@@ -152,4 +152,5 @@ glyphs = [
 for c in glyphs:
     for dmg in c.damages():
         for res in [6]:
-            call(["./generate_glyph.py", "-c", c.symbol, "-e", "0.04", "-b", "0.02", "-B", "3", "-f", c.filename, "-r", str(res), "-d", str(dmg)])
+            call(["./generate_glyph.py", "-c", c.symbol, "-e", "0.04", "-b", "0.02", "-B", "2", "-f", '/tmp/blot/'+c.filename, "-r", str(res), "-d", str(dmg)])
+            call(["mv", "/tmp/blot/Mesh.mesh.xml", "model/"+c.filename+".mesh.xml"])
