@@ -1,0 +1,48 @@
+{
+  "version": 6,
+  "width": 400,
+  "height": 100,
+  "depth": 0,
+  "prelude": 0,
+  "seed": 1569394397270,
+  "weight": 1.0,
+  "coda": 0,
+  "compute_mode": "combined",
+  "meta_mode": "depth",
+  "update_mode": {
+    "type": "sync"
+  },
+  "edge_mode": {
+    "type": "toroidal"
+  },
+  "external_force": {
+    "type": "nop"
+  },
+  "initializer": {
+    "type": "custom",
+    "text": "x\u003d20\ny\u003d40\n\n\ni.draw(x,y+15,\u0027\u0027\u0027\n10010\n00001\n10001\n01111\n\u0027\u0027\u0027)\n\ni.draw(x+6,y+5,\u0027\u0027\u0027\n001\n011\n1\n011111\n001111\n000001\n\u0027\u0027\u0027)\n\ni.draw(x+9,y,\u0027\u0027\u0027\n00110\n11011\n11110\n01100\n\u0027\u0027\u0027)\n\ni.draw(x+15,y+6,\u0027\u0027\u0027\n0011\n01001\n01001\n11011\n011\n\u0027\u0027\u0027)\n\ni.draw(x+17,y,\u0027\u0027\u0027\n01111\n10001\n00001\n10010\n\u0027\u0027\u0027)\n\ni.draw(x+17,y+14,\u0027\u0027\u0027\n01111\n10001\n00001\n10010\n\u0027\u0027\u0027)\n"
+  },
+  "rule": {
+    "type": "computed",
+    "archetype": {
+      "dims": 2,
+      "size": 1,
+      "colors": 2,
+      "neighborhood": "moore",
+      "values": "discrete"
+    },
+    "genome": "100:ki mi a2 a3 u ki mi8 a3 ma ya ra",
+    "transition": 0.1,
+    "language": {
+      "name": "Universal"
+    }
+  },
+  "palette": {
+    "type": "indexed",
+    "colors": [
+      -16777216,
+      -1
+    ]
+  },
+  "vars": {}
+}

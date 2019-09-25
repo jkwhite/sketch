@@ -1,0 +1,48 @@
+{
+  "version": 6,
+  "width": 400,
+  "height": 100,
+  "depth": 0,
+  "prelude": 0,
+  "seed": 1900293288,
+  "weight": 1.0,
+  "coda": 0,
+  "compute_mode": "combined",
+  "meta_mode": "depth",
+  "update_mode": {
+    "type": "sync"
+  },
+  "edge_mode": {
+    "type": "toroidal"
+  },
+  "external_force": {
+    "type": "nop"
+  },
+  "initializer": {
+    "type": "custom",
+    "text": "x\u003d20\ny\u003d45\ni.draw(x+1,y+5,\"11\")\ni.draw(x+1,y+6,\"11\")\ni.dot(1,x+11,y+5)\ni.dot(1,x+11,y+6)\ni.dot(1,x+11,y+7)\n\ni.dot(1,x+12,y+4)\ni.dot(1,x+12,y+8)\ni.dot(1,x+13,y+3)\ni.dot(1,x+13,y+9)\ni.dot(1,x+14,y+3)\ni.dot(1,x+14,y+9)\n\ni.dot(1,x+15,y+6)\n\ni.dot(1,x+16,y+4)\ni.dot(1,x+16,y+8)\n\ni.dot(1,x+17,y+5)\ni.dot(1,x+17,y+6)\ni.dot(1,x+17,y+7)\ni.dot(1,x+18,y+6)\n\ni.draw(x+21,y+3,\"11\")\ni.draw(x+21,y+4,\"11\")\ni.draw(x+21,y+5,\"11\")\ni.dot(1,x+23,y+2)\ni.dot(1,x+23,y+6)\ni.dot(1,x+25,y+1)\ni.dot(1,x+25,y+2)\ni.dot(1,x+25,y+6)\ni.dot(1,x+25,y+7)\n\ni.draw(x+35,y+3,\"11\")\ni.draw(x+35,y+4,\"11\")\n"
+  },
+  "rule": {
+    "type": "computed",
+    "archetype": {
+      "dims": 2,
+      "size": 1,
+      "colors": 2,
+      "neighborhood": "moore",
+      "values": "discrete"
+    },
+    "genome": "100:ki mi a2 a3 u ki mi8 a3 ma ya ra",
+    "transition": 0.1,
+    "language": {
+      "name": "Universal"
+    }
+  },
+  "palette": {
+    "type": "indexed",
+    "colors": [
+      -16777216,
+      -1
+    ]
+  },
+  "vars": {}
+}
