@@ -674,7 +674,7 @@ slides = [
                 |\tPublished by John Conway in 1970 based on work
                 |\tby John von Neumann and Stanislaw Ulam
 
-                |\tIt has been studied extensively and is proven to be a universal Turing machine
+                |\tIt has been studied extensively and is Turing complete
 
                 |\tAnd its update rule is quite simple...
                 ''')
@@ -694,7 +694,16 @@ slides = [
     [
         {
             prn ''
-            prn title('Living Organisms'.ctr())
+            prn title('It\'s life... but not as we know it'.ctr())
+        },
+        {
+            pt '''
+            \tThe Life universe is home to many different species of creatures...'''
+        },
+        {
+            pt '''
+            \tThese creatures are classified according to their behavior. Let's look at a few.
+            '''
         },
         {
             // still life
@@ -734,8 +743,8 @@ slides = [
                          |010'''.stripMargin()
                     ]
                 ].collect { 
-                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,100).label(it[0],['pos':'bottom'])
-                }.table(5, ['margin':20]).label('Still Life', ['pos':'bottom'])
+                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,70).label(it[0],['pos':'bottom'])
+                }.table(5, ['margin':20,'padding':20]).label('Still Life', ['pos':'bottom']).ctr()
             )
         },
         {
@@ -791,8 +800,8 @@ slides = [
                          |010'''.stripMargin()
                     ]
                 ].collect { 
-                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,100).label(it[0],['pos':'bottom'])
-                }.table(5, ['margin':20]).label('Oscillators', ['pos':'bottom'])
+                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,70).label(it[0],['pos':'bottom'])
+                }.table(5, ['margin':20]).label('\nOscillators', ['pos':'bottom']).ctr()
             )
         },
         {
@@ -802,7 +811,7 @@ slides = [
             x=20; y=20
             prn(
                 [
-                    [ 'Glider',
+                    [ '\nGlider',
                       '''
                          |010
                          |001
@@ -832,8 +841,38 @@ slides = [
                          |0011000'''.stripMargin()
                     ]
                 ].collect { 
-                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,100).label(it[0],['pos':'bottom'])
-                }.table(4, ['margin':20]).label('Spaceships', ['pos':'bottom'])
+                    rule.ca([x, y], bnw, init_custom(it[1],x,y,-1,-1)).animate(6f,-1,70).label(it[0],['pos':'bottom'])
+                }.table(4, ['margin':20]).label('\nSpaceships', ['pos':'bottom']).ctr()
+            )
+        }
+    ],
+    [
+        {
+            prn ''
+            prn title('Slightly more complex lifeforms'.ctr())
+        },
+        {
+            // gosper gun
+            gosper = CA.fromFile('/Users/jkw/work/ca/src/2d-gosper-gun.ca','text')
+
+            prn(
+                [
+                    [ 'Gosper glider gun - An oscillating spaceship factory', gosper ]
+                ].collect { 
+                    it[1].animate(3f,-1,70).label(it[0],['pos':'bottom'])
+                }.table(5, ['margin':20,'padding':20]).label('', ['pos':'bottom']).ctr()
+            )
+        },
+        {
+            // spacerake
+            spacerake = CA.fromFile('/Users/jkw/work/ca/src/2d-spacerake.ca','text')
+
+            prn(
+                [
+                    [ 'Spacerake - A spaceship spaceship factory', spacerake ]
+                ].collect { 
+                    it[1].animate(3f,-1,70).label(it[0],['pos':'bottom'])
+                }.table(5, ['margin':20,'padding':20]).label('', ['pos':'bottom']).ctr()
             )
         }
     ],
