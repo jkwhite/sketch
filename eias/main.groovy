@@ -876,6 +876,73 @@ slides = [
             )
         }
     ],
+    [
+        {
+            prn ''
+            prn title('I\'m not a clone, you\'re the clone!'.ctr())
+        },
+        {
+            pt '''
+            |\t`/Self-reproducing automata`` are structures that are able to make copies of themselves.
+
+            |\t`/Langton loops`` (Christopher Langton, 1984) use a shealth to protect their DNA,
+            |\twhich is replicated in the cloned loop.
+            '''
+        },
+        {
+            langton = CA.fromFile('/Users/jkw/work/ca/src/langton2.ca','text')
+            prn(langton.animate(4f,-1,70).label('').ctr())
+        }
+    ],
+    [
+        {
+            boscos = CA.fromFile('/Users/jkw/work/ca/src/larger_than_life_s5_boscos_rule.ca','text')
+            prn ''
+            prn(boscos.frame(25).toJfxImage())
+            //prn(incant(2,1,2,'77:ki su nu o4 ya ha mi ka ka')
+                //.ca([200,200], ['black','white'], init_single()).size(200,200,1,92).scaled(2))
+            prn ''
+            prn title('Practical Applications'.ctr())
+            //prn ''
+            //pbt('Practical applications'.ctr())
+        }
+    ],
+    [
+        {
+            prn ''
+            prn title('The Hodgepodge Machine'.ctr())
+        },
+        {
+            pt '''
+            |\tDeveloped to model complex chemical reactions like CO`v2`` formation
+
+            |\tEmulates reaction-diffusion partial differential equations
+
+            |\t(Gerhardt & Schuster, 1989)
+            '''
+        },
+        {
+            hodge = CA.fromFile('/Users/jkw/work/ca/src/hodgepodge-hc-red.ca','text')
+            //prn(hodge.animate(4f,100,70).label('').ctr())
+            prn(
+                [
+                    hodge.size(200,200).scaled(2),
+                    img('file:///Users/jkw/Pictures/patterns/bz1.jpg')
+                ].table(2).label('Belousov-Zhabotinsky Reaction', ['pos':'bottom']).ctr()
+            )
+        }
+    ],
+    [
+        {
+            prn ''
+            prn title('Slime Molds'.ctr())
+        },
+        {
+            pt '''
+            \tEvery presentation should have one.
+            '''
+        },
+    ],
     {
         prn('')
         prn(h2('Whence?'.ctr()))

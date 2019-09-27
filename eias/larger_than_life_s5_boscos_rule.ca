@@ -1,0 +1,53 @@
+{
+  "version": 6,
+  "width": 400,
+  "height": 400,
+  "depth": 1,
+  "prelude": 0,
+  "seed": 0,
+  "weight": 1.0,
+  "coda": 0,
+  "compute_mode": "combined",
+  "update_mode": {
+    "type": "sync"
+  },
+  "edge_mode": {
+    "type": "toroidal"
+  },
+  "external_force": {
+    "type": "nop"
+  },
+  "initializer": {
+    "type": "random",
+    "seed": 0,
+    "zero_weight": 0.0
+  },
+  "rule": {
+    "type": "computed",
+    "archetype": {
+      "dims": 2,
+      "size": 5,
+      "colors": 2,
+      "neighborhood": "moore",
+      "values": "discrete"
+    },
+    "genome": "70:ki mi a{d1} a{d2} u ki mi120 a{b1} a{b2} u ya ra",
+    "transition": 0.2,
+    "language": {
+      "name": "Universal"
+    }
+  },
+  "palette": {
+    "type": "indexed",
+    "colors": [
+      -16777216,
+      -1463281
+    ]
+  },
+  "vars": {
+    "b2": "44",
+    "d1": "33",
+    "d2": "57",
+    "b1": "33"
+  }
+}
